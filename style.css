@@ -403,7 +403,7 @@ body.dark-mode .course-item.completed .course-name {
     }
 }
 
-/* Area badges */
+/* Area badges (these will not be applied to courses anymore as 'area' property is removed) */
 .course-area {
     font-size: 0.7em;
     padding: 3px 8px;
