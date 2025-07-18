@@ -3,31 +3,41 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Malla Curricular Medicina</title>
+    <title>Progreso de Malla Curricular</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
     <header>
-        <h1>Malla Curricular de Medicina</h1>
-        <div class="theme-switch-wrapper">
-            <label class="theme-switch" for="checkbox">
-                <input type="checkbox" id="checkbox" />
-                <div class="slider round"></div>
-            </label>
-            <span class="theme-text">Modo Claro/Oscuro</span>
+        <h1>Progreso de Malla Curricular</h1>
+        <div class="theme-switcher" title="Cambiar tema">
+            <span class="icon" data-tooltip="Modo Oscuro/Claro">🌙</span>
         </div>
     </header>
 
-    <main id="course-grid">
-        </main>
+    <main>
+        <section class="progress-section">
+            <h2>Avance General</h2>
+            <div class="progress-bar-container">
+                <div class="progress-bar-fill" id="overall-progress-bar"></div>
+                <span class="progress-text" id="overall-progress-text">0%</span>
+            </div>
+            <p>Ramos Completados: <span id="completed-courses-count">0</span> de <span id="total-courses-count">0</span></p>
+        </section>
 
-    <aside class="program-details">
-        <h2>Información del Programa</h2>
-        <p><strong>Grado Académico:</strong> <span id="licenciate-title"></span></p>
-        <p><strong>Título Profesional:</strong> <span id="professional-title"></span></p>
-        <h3>Notas Importantes:</h3>
-        <ul id="program-notes"></ul>
-    </aside>
+        <section class="next-courses-section">
+            <h2>Próximos Ramos Recomendados (Máx. 6)</h2>
+            <div id="next-courses-list" class="next-courses-list">
+                <p>No hay ramos recomendados en este momento.</p>
+            </div>
+        </section>
+
+        <section class="curriculum-section" id="curriculum-section">
+            </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2025 Malla Curricular Tracker</p>
+    </footer>
 
     <script src="data.js"></script>
     <script src="script.js"></script>
