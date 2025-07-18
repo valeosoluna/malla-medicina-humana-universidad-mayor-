@@ -1,237 +1,393 @@
+/* style.css */
+
+/* Variables CSS para el modo claro (día) - Tonalidades pastel bonitas */
+:root {
+    --bg-color: #FDF9F3; /* Fondo principal (Crema muy suave) */
+    --header-bg: #FFFFFF; /* Fondo del encabezado (Blanco puro) */
+    --text-color: #36454F; /* Color de texto principal (Gris carbón) */
+    --secondary-text-color: #6A5ACD; /* Color de texto secundario (Azul Púrpura) */
+    --container-bg: #FFFFFF; /* Fondo de contenedores (Blanco puro) */
+    --semester-bg: #F8F8FF; /* Fondo de semestre (Lavanda muy clara) */
+    --course-box-default-bg: #FFDAB9; /* Fondo de curso por defecto (Durazno claro) */
+    --course-box-approved-bg: #B0E0E6; /* Fondo de curso aprobado (Azul cielo pastel) */
+    --course-box-blocked-bg: #E0E0E0; /* Fondo de curso bloqueado (Gris claro) */
+    --course-box-recommended-bg: #FFEBEB; /* Fondo de curso recomendado (Rosa muy claro) */
+    --progress-bar-bg: #B0C4DE; /* Fondo de barra de progreso (Azul Pizarra claro) */
+    --progress-fill-bg: #A2D9CE; /* Relleno de progreso (Verde Mar pastel) */
+    --button-primary-bg: #849DD1; /* Botón primario (Azul Celeste) */
+    --button-primary-hover-bg: #6B87C2; /* Botón primario hover (Azul Celeste más oscuro) */
+    --button-danger-bg: #FF6961; /* Botón de peligro (Rojo coral) */
+    --button-danger-hover-bg: #E05D56; /* Botón de peligro hover (Rojo coral más oscuro) */
+    --border-basic: #ADD8E6; /* Borde área Básica (Azul Claro) */
+    --border-disciplinar: #98FB98; /* Borde área Disciplinar (Verde Pálido) */
+    --border-elective: #FFDAB9; /* Borde área Electiva (Durazno Pastel) */
+    --modal-bg: #FFFFFF; /* Fondo del modal */
+    --modal-border: #BBBBBB; /* Borde del modal */
+}
+
+/* Variables CSS para el modo oscuro (noche) */
+body.dark-mode {
+    --bg-color: #2F4F4F; /* Fondo principal (Gris Pizarra Oscuro) */
+    --header-bg: #36454F; /* Fondo del encabezado (Gris Carbón) */
+    --text-color: #F8F8F8; /* Color de texto principal (Blanco casi puro) */
+    --secondary-text-color: #A9A9A9; /* Color de texto secundario (Gris Oscuro) */
+    --container-bg: #36454F; /* Fondo de contenedores (Gris Carbón) */
+    --semester-bg: #4F626E; /* Fondo de semestre (Gris azulado oscuro) */
+    --course-box-default-bg: #5C6A72; /* Fondo de curso por defecto (Gris Pizarra) */
+    --course-box-approved-bg: #4682B4; /* Fondo de curso aprobado (Azul Acero) */
+    --course-box-blocked-bg: #696969; /* Fondo de curso bloqueado (Gris Dim) */
+    --course-box-recommended-bg: #4A4A4A; /* Fondo de curso recomendado (Gris oscuro) */
+    --progress-bar-bg: #4F626E; /* Fondo de barra de progreso (Gris azulado oscuro) */
+    --progress-fill-bg: #778899; /* Relleno de progreso (Gris Pizarra claro) */
+    --button-primary-bg: #6A5ACD; /* Botón primario (Azul Púrpura) */
+    --button-primary-hover-bg: #5B4BBE; /* Botón primario hover (Azul Púrpura más oscuro) */
+    --button-danger-bg: #CC0000; /* Botón de peligro (Rojo oscuro) */
+    --button-danger-hover-bg: #A00000; /* Botón de peligro hover (Rojo más oscuro) */
+    --border-basic: #66A3D2; /* Borde área Básica (Azul claro oscuro) */
+    --border-disciplinar: #6CC16D; /* Borde área Disciplinar (Verde oscuro) */
+    --border-elective: #E68A00; /* Borde área Electiva (Naranja oscuro) */
+    --modal-bg: #36454F; /* Fondo del modal */
+    --modal-border: #888888; /* Borde del modal */
+}
+
 body {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    background-color: #fce4ec; /* Light pink background */
-    color: #4a4a4a;
     margin: 0;
     padding: 20px;
-    display: flex;
-    justify-content: center;
-    align-items: flex-start;
-    min-height: 100vh;
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    transition: background-color 0.5s ease, color 0.5s ease;
 }
 
-.container {
-    background-color: #fff;
-    padding: 30px;
-    border-radius: 12px;
-    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
-    width: 100%;
-    max-width: 900px;
-    box-sizing: border-box;
-}
-
-h1 {
+.header {
     text-align: center;
-    color: #e91e63; /* Deeper pink for headings */
     margin-bottom: 30px;
-    font-size: 2.5em;
-    font-weight: 600;
-}
-
-.progress-bar-container {
-    width: 100%;
-    background-color: #f8bbd0; /* Lighter pink for progress bar background */
-    border-radius: 10px;
-    overflow: hidden;
-    margin-bottom: 30px;
-    box-shadow: inset 0 2px 5px rgba(0, 0, 0, 0.05);
-}
-
-.progress-bar-label {
-    text-align: center;
-    padding: 8px 0;
-    font-weight: bold;
-    color: #d81b60; /* Darker pink for label */
-}
-
-.progress-bar {
-    height: 25px;
-    background-color: #f8bbd0; /* Lighter pink for progress bar background */
-    border-radius: 10px;
-    overflow: hidden;
-}
-
-.progress-fill {
-    height: 100%;
-    width: 0%;
-    background-color: #ff80ab; /* Medium pink for progress fill */
-    border-radius: 10px;
-    transition: width 0.5s ease-in-out;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: #fff;
-    font-weight: bold;
-    font-size: 0.9em;
-}
-
-.next-courses-section {
-    background-color: #ffebee; /* Very light pink */
     padding: 20px;
+    background-color: var(--header-bg);
     border-radius: 10px;
-    margin-bottom: 30px;
-    border: 1px solid #ffcdd2; /* Light pink border */
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    position: relative; /* Para el botón de modo */
 }
 
-.next-courses-section h2 {
-    color: #e91e63;
-    margin-top: 0;
-    font-size: 1.8em;
-    text-align: center;
+.header h1 {
+    color: var(--text-color);
     margin-bottom: 15px;
 }
 
-.next-courses-list {
+.progress-container {
+    width: 80%;
+    max-width: 800px;
+    background-color: var(--progress-bar-bg);
+    border-radius: 15px;
+    margin: 20px auto 10px auto;
+    height: 35px;
+    position: relative;
+    box-shadow: inset 0 2px 5px rgba(0, 0, 0, 0.1);
+    overflow: hidden; /* Asegura que la barra de relleno no sobresalga */
+}
+
+.progress-bar {
+    height: 100%;
+    width: 0%;
+    background-color: var(--progress-fill-bg);
+    border-radius: 15px;
+    text-align: center;
+    line-height: 35px;
+    color: var(--text-color); /* Color del texto del porcentaje */
+    font-weight: bold;
+    transition: width 0.8s ease-in-out, background-color 0.5s ease;
+    position: absolute; /* Para que el texto de porcentaje se superponga */
+    left: 0;
+    top: 0;
+    white-space: nowrap; /* Evita que el texto del porcentaje se rompa */
+}
+
+.progress-text {
+    position: absolute;
+    width: 100%;
+    text-align: center;
+    top: 0;
+    left: 0;
+    line-height: 35px;
+    font-weight: bold;
+    color: var(--text-color);
+    z-index: 1; /* Asegura que el texto esté encima de la barra */
+}
+
+/* Estilos para el promedio de ramos */
+.average-grade-container {
+    margin-top: 15px;
+    font-size: 1.1em;
+    font-weight: bold;
+    color: var(--secondary-text-color);
+    background-color: var(--semester-bg); /* Un tono más suave para este cuadro */
+    padding: 10px 20px;
+    border-radius: 8px;
+    display: inline-block;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.average-grade-text {
+    color: var(--secondary-text-color);
+}
+
+.main-content {
+    overflow-x: auto;
+    padding-bottom: 20px;
+}
+
+.semesters-container {
+    display: flex;
+    gap: 20px;
+    padding: 20px;
+    background-color: var(--container-bg);
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    min-width: fit-content;
+}
+
+.semester {
+    flex-shrink: 0;
+    width: 200px; /* Ancho ajustado para mejor visualización */
+    background-color: var(--semester-bg);
+    padding: 15px;
+    border-radius: 8px;
+    text-align: center;
+    font-weight: bold;
+    color: var(--secondary-text-color);
+    box-shadow: inset 0 2px 5px rgba(0, 0, 0, 0.1);
+    border: 1px solid var(--border-color, #E0E0E0); /* Borde suave */
+}
+
+.semester h3 {
+    margin-top: 0;
+    margin-bottom: 15px;
+    color: var(--text-color);
+    font-size: 1.3em;
+}
+
+.courses-container {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-top: 15px;
+}
+
+.course-box {
+    background-color: var(--course-box-default-bg);
+    color: var(--text-color); /* Color de texto que contraste bien */
+    padding: 12px;
+    border-radius: 8px;
+    text-align: center;
+    cursor: pointer;
+    transition: background-color 0.3s ease, opacity 0.3s ease, border-color 0.3s ease, color 0.3s ease;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+    position: relative;
+    border: 2px solid transparent; /* Borde para el color de área */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 50px;
+    line-height: 1.3;
+    font-size: 0.95em;
+    font-weight: 500;
+}
+
+.course-box:hover:not(.approved):not(.blocked) {
+    opacity: 0.85;
+    transform: translateY(-2px); /* Pequeño efecto de elevación */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+}
+
+/* Colores de borde por área */
+.course-box.Básica {
+    border-color: var(--border-basic);
+}
+.course-box.Disciplinar {
+    border-color: var(--border-disciplinar);
+}
+.course-box.Electiva {
+    border-color: var(--border-elective);
+}
+
+.course-box.approved {
+    background-color: var(--course-box-approved-bg);
+    color: var(--text-color); /* Mantener color de texto que contraste */
+    text-decoration: line-through;
+    cursor: default;
+    opacity: 0.9;
+    box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.course-box.blocked {
+    background-color: var(--course-box-blocked-bg);
+    color: var(--secondary-text-color);
+    cursor: not-allowed;
+    opacity: 0.7;
+    box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.15);
+}
+
+/* Recomendaciones */
+.recommendations-container {
+    background-color: var(--container-bg);
+    padding: 25px;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    margin-top: 30px;
+    text-align: center;
+}
+
+.recommendations-container h2 {
+    color: var(--secondary-text-color);
+    margin-bottom: 20px;
+    font-size: 1.5em;
+}
+
+#recommendedCourses {
     display: flex;
     flex-wrap: wrap;
-    gap: 15px;
+    gap: 12px;
+    justify-content: center;
+    margin-bottom: 25px;
+}
+
+#recommendedCourses .course-box {
+    background-color: var(--course-box-recommended-bg);
+    color: var(--text-color);
+    cursor: default;
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.08);
+    border-style: dashed;
+    border-width: 1px;
+}
+
+#recommendedCourses .course-box.Básica {
+    border-color: var(--border-basic);
+}
+#recommendedCourses .course-box.Disciplinar {
+    border-color: var(--border-disciplinar);
+}
+#recommendedCourses .course-box.Electiva {
+    border-color: var(--border-elective);
+}
+
+#refreshRecommendations, #themeToggleButton {
+    background-color: var(--button-primary-bg);
+    color: white;
+    padding: 12px 20px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 1.05em;
+    font-weight: 600;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    margin: 5px; /* Espacio entre botones si hay varios */
+}
+
+#refreshRecommendations:hover, #themeToggleButton:hover {
+    background-color: var(--button-primary-hover-bg);
+    transform: translateY(-1px);
+}
+
+/* Modal Styles */
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1000; /* Asegura que esté por encima de todo */
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    align-items: center;
     justify-content: center;
 }
 
-.next-course-item {
-    background-color: #fff;
-    padding: 12px 18px;
-    border-radius: 8px;
-    border: 1px solid #ffab91; /* Peach-pink border */
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
-    transition: transform 0.2s ease-in-out;
+.modal-content {
+    background-color: var(--modal-bg);
+    padding: 30px;
+    border-radius: 12px;
+    border: 1px solid var(--modal-border);
+    width: 90%;
+    max-width: 550px;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.25);
+    position: relative;
+    text-align: left;
+    color: var(--text-color);
 }
 
-.next-course-item:hover {
-    transform: translateY(-3px);
-}
-
-.next-course-item input[type="checkbox"] {
-    transform: scale(1.3);
-    accent-color: #e91e63; /* Pink checkbox */
-    cursor: pointer;
-}
-
-.next-courses-tip {
-    text-align: center;
-    margin-top: 15px;
-    font-style: italic;
-    color: #888;
-    font-size: 0.9em;
-}
-
-.semester-container {
-    background-color: #fde2e8; /* Slightly darker light pink */
-    border-radius: 10px;
+.modal-content h2 {
+    color: var(--secondary-text-color);
+    margin-top: 0;
     margin-bottom: 20px;
-    overflow: hidden;
-    border: 1px solid #f8bbd0;
+    font-size: 1.8em;
 }
 
-.semester-header {
-    background-color: #f8bbd0; /* Lighter pink for semester header */
-    color: #ad1457; /* Darker pink for header text */
-    padding: 15px 20px;
-    margin: 0;
+.modal-content p {
+    margin-bottom: 10px;
+    line-height: 1.6;
+    font-size: 1.0em;
+}
+
+.modal-content p strong {
+    color: var(--secondary-text-color);
+}
+
+.close-button {
+    color: var(--secondary-text-color);
+    font-size: 32px;
+    font-weight: bold;
+    position: absolute;
+    top: 10px;
+    right: 20px;
     cursor: pointer;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    font-size: 1.5em;
-    font-weight: 600;
-    border-bottom: 1px solid #f06292; /* Border for visual separation */
+    transition: color 0.3s ease;
 }
 
-.semester-header::after {
-    content: '▼';
-    font-size: 0.8em;
-    transition: transform 0.3s ease;
+.close-button:hover,
+.close-button:focus {
+    color: var(--button-danger-bg);
+    text-decoration: none;
 }
 
-.semester-container.collapsed .semester-header::after {
-    transform: rotate(-90deg);
-}
-
-.semester-container.collapsed .course-grid {
-    display: none;
-}
-
-.course-grid {
-    padding: 20px;
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-    gap: 15px;
-}
-
-.course-item {
-    background-color: #fff;
-    padding: 15px;
+.modal-button {
+    color: white;
+    padding: 12px 20px;
+    border: none;
     border-radius: 8px;
-    border: 1px solid #f48fb1; /* Medium light pink border */
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
-    transition: all 0.3s ease;
-}
-
-.course-item:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-}
-
-.course-item input[type="checkbox"] {
-    transform: scale(1.5);
-    accent-color: #e91e63; /* Pink checkbox */
     cursor: pointer;
+    font-size: 1.05em;
+    font-weight: 600;
+    margin-top: 25px;
+    transition: background-color 0.3s ease, transform 0.2s ease;
 }
 
-.course-item span {
-    flex-grow: 1;
-    font-size: 1.1em;
-    color: #555;
+.modal-button.approve {
+    background-color: var(--button-primary-bg);
 }
 
-.course-item.completed {
-    background-color: #e0f2f7; /* Light blue for completed items (can be adjusted to pinker if preferred) */
-    border-color: #a7d9f2; /* A bit darker light blue */
-    text-decoration: line-through;
-    opacity: 0.7;
+.modal-button.approve:hover {
+    background-color: var(--button-primary-hover-bg);
+    transform: translateY(-1px);
 }
 
-.course-item.completed span {
-    color: #888;
+.modal-button.close {
+    background-color: var(--button-danger-bg);
+    margin-left: 15px;
 }
 
-/* Responsive adjustments */
-@media (max-width: 768px) {
-    .container {
-        padding: 20px;
-    }
-    h1 {
-        font-size: 2em;
-    }
-    .semester-header {
-        font-size: 1.3em;
-        padding: 12px 15px;
-    }
-    .course-grid {
-        grid-template-columns: 1fr;
-    }
-    .course-item {
-        padding: 12px;
-    }
+.modal-button.close:hover {
+    background-color: var(--button-danger-hover-bg);
+    transform: translateY(-1px);
 }
 
-@media (max-width: 480px) {
-    body {
-        padding: 10px;
-    }
-    .container {
-        padding: 15px;
-    }
-    h1 {
-        font-size: 1.8em;
-    }
-    .semester-header {
-        font-size: 1.2em;
-    }
+/* Estilos específicos para el botón de cambio de tema */
+#themeToggleButton {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    padding: 10px 15px;
+    font-size: 0.9em;
+    z-index: 10; /* Asegura que esté por encima de otros elementos */
 }
