@@ -1,496 +1,116 @@
-/* style.css */
-
 :root {
-    /* Light Mode Pastels */
-    --primary-bg-light: #f7e6f9; /* Soft Lavender/Pink */
-    --secondary-bg-light: #e0f2f7; /* Light Blue */
-    --card-bg-light: #ffffff; /* White for cards */
-    --text-color-light: #333;
-    --header-bg-light: #fbe6ff; /* Slightly deeper pastel for header */
-    --border-color-light: #d8c2e0;
-    --progress-fill-light: #b39cd0; /* Medium Purple */
-    --next-course-bg-light: #ffe6e6; /* Soft Rose */
-    --tooltip-bg-light: #555;
-    --tooltip-text-light: #fff;
+  --bg: #fefefe;
+  --text: #222;
+  --card: #ffe6f0;
+  --disponible: #e0f7fa;
+  --aprobado: #dcd6f7;
+  --bloqueado: #f8f8f8;
+}
 
-    /* Dark Mode Pastels */
-    --primary-bg-dark: #3a2e4c; /* Deep Purple */
-    --secondary-bg-dark: #2e3a4c; /* Deep Blue */
-    --card-bg-dark: #222a38; /* Darker card background */
-    --text-color-dark: #e0e0e0;
-    --header-bg-dark: #4b3b5e; /* Slightly lighter dark pastel */
-    --border-color-dark: #5c4e70;
-    --progress-fill-dark: #816797; /* Lighter Purple */
-    --next-course-bg-dark: #4c3a3a; /* Dark Rose */
-    --tooltip-bg-dark: #ccc;
-    --tooltip-text-dark: #333;
-
-    /* Common */
-    --transition-speed: 0.3s ease-in-out;
-    --border-radius: 8px;
-    --box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+body.oscuro {
+  --bg: #1a1a1a;
+  --text: #f0f0f0;
+  --card: #3a2c3b;
+  --disponible: #295a63;
+  --aprobado: #483f7b;
+  --bloqueado: #333;
 }
 
 body {
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    margin: 0;
-    padding: 0;
-    line-height: 1.6;
-    background-color: var(--primary-bg-light);
-    color: var(--text-color-light);
-    transition: background-color var(--transition-speed), color var(--transition-speed);
-    display: flex;
-    justify-content: center;
-    min-height: 100vh;
-}
-
-body.dark-mode {
-    background-color: var(--primary-bg-dark);
-    color: var(--text-color-dark);
-}
-
-.container {
-    width: 90%;
-    max-width: 1200px;
-    margin: 20px auto;
-    padding: 20px;
-    background-color: var(--secondary-bg-light);
-    border-radius: var(--border-radius);
-    box-shadow: var(--box-shadow);
-    transition: background-color var(--transition-speed);
-}
-
-body.dark-mode .container {
-    background-color: var(--secondary-bg-dark);
+  background: var(--bg);
+  color: var(--text);
+  font-family: 'Segoe UI', sans-serif;
+  margin: 0;
+  padding: 0;
+  transition: background 0.4s ease, color 0.4s ease;
 }
 
 header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    background-color: var(--header-bg-light);
-    padding: 15px 20px;
-    border-radius: var(--border-radius);
-    margin-bottom: 20px;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
-    transition: background-color var(--transition-speed);
+  background: var(--card);
+  padding: 1rem;
+  text-align: center;
+  position: sticky;
+  top: 0;
+  z-index: 100;
 }
 
-body.dark-mode header {
-    background-color: var(--header-bg-dark);
+button {
+  cursor: pointer;
+  font-size: 1.2rem;
+  padding: 0.4rem 0.8rem;
+  border-radius: 12px;
+  border: none;
+  background: var(--disponible);
+  transition: background 0.3s;
 }
 
-h1 {
-    color: var(--text-color-light);
-    margin: 0;
-    font-size: 1.8em;
-    transition: color var(--transition-speed);
+button:hover {
+  background: var(--aprobado);
 }
 
-body.dark-mode h1 {
-    color: var(--text-color-dark);
+main {
+  padding: 1rem;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 1rem;
 }
 
-.theme-toggle {
-    background: none;
-    border: none;
-    font-size: 1.8em;
-    cursor: pointer;
-    transition: transform 0.2s ease;
-    color: var(--text-color-light); /* Ensure icon color adjusts */
+.seestre {
+  background: var(--card);
+  padding: 0.5rem;
+  border-radius: 16px;
 }
 
-.theme-toggle:hover {
-    transform: scale(1.1);
+.ramo {
+  background: var(--card);
+  padding: 1rem;
+  margin-bottom: 0.5rem;
+  border-radius: 1rem;
+  box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+  transition: transform 0.2s, background 0.3s;
 }
 
-body.dark-mode .theme-toggle {
-    color: var(--text-color-dark);
+.ramo:hover {
+  transform: scale(1.02);
 }
 
-/* Tooltips */
-.tooltip-button {
-    position: relative;
-    padding: 8px 12px;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    font-size: 1.2em;
-    background: transparent; /* Make button background transparent for the icon */
-    color: var(--text-color-light);
-    transition: all var(--transition-speed);
+.ramo.aprobado {
+  text-decoration: line-through;
+  background: var(--aprobado);
+  opacity: 0.7;
 }
 
-body.dark-mode .tooltip-button {
-    color: var(--text-color-dark);
+.ramo.disponible {
+  background: var(--disponible);
 }
 
-.tooltip-button:hover {
-    opacity: 0.8;
+.ramo.bloqueado {
+  background: var(--bloqueado);
+  opacity: 0.5;
 }
 
-.tooltip-button::before {
-    content: attr(data-tooltip);
-    position: absolute;
-    bottom: 120%; /* Position above the button */
-    left: 50%;
-    transform: translateX(-50%);
-    background-color: var(--tooltip-bg-light);
-    color: var(--tooltip-text-light);
-    padding: 5px 10px;
-    border-radius: 4px;
-    font-size: 0.8em;
-    white-space: nowrap;
-    opacity: 0;
-    visibility: hidden;
-    transition: opacity 0.3s ease, visibility 0.3s ease;
-    z-index: 10;
+.progreso {
+  margin: 1rem;
+  height: 25px;
+  background: #ddd;
+  border-radius: 20px;
+  overflow: hidden;
+  position: relative;
 }
 
-body.dark-mode .tooltip-button::before {
-    background-color: var(--tooltip-bg-dark);
-    color: var(--tooltip-text-dark);
+#barra-progreso {
+  height: 100%;
+  width: 0%;
+  background: linear-gradient(to right, #ffb6c1, #dcd6f7, #a0e7e5);
+  transition: width 0.5s ease;
 }
 
-.tooltip-button:hover::before {
-    opacity: 1;
-    visibility: visible;
-}
-
-/* Progress Bar */
-.progress-section {
-    background-color: var(--card-bg-light);
-    padding: 20px;
-    border-radius: var(--border-radius);
-    margin-bottom: 20px;
-    box-shadow: var(--box-shadow);
-    transition: background-color var(--transition-speed);
-}
-
-body.dark-mode .progress-section {
-    background-color: var(--card-bg-dark);
-}
-
-.progress-section h2 {
-    text-align: center;
-    color: var(--text-color-light);
-    margin-bottom: 15px;
-    transition: color var(--transition-speed);
-}
-
-body.dark-mode .progress-section h2 {
-    color: var(--text-color-dark);
-}
-
-.progress-bar-container {
-    width: 100%;
-    background-color: var(--border-color-light);
-    border-radius: 20px;
-    height: 30px;
-    overflow: hidden;
-    margin-bottom: 15px;
-    transition: background-color var(--transition-speed);
-}
-
-body.dark-mode .progress-bar-container {
-    background-color: var(--border-color-dark);
-}
-
-.progress-bar {
-    height: 100%;
-    width: 0%;
-    background-color: var(--progress-fill-light);
-    border-radius: 20px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: white;
-    font-weight: bold;
-    transition: width 0.5s ease-out, background-color var(--transition-speed);
-}
-
-body.dark-mode .progress-bar {
-    background-color: var(--progress-fill-dark);
-}
-
-.progress-text {
-    text-shadow: 1px 1px 2px rgba(0,0,0,0.2);
-}
-
-.degree-info {
-    text-align: center;
-    font-style: italic;
-    color: var(--text-color-light);
-    transition: color var(--transition-speed);
-}
-
-body.dark-mode .degree-info {
-    color: var(--text-color-dark);
-}
-
-.degree-info.achieved {
-    font-weight: bold;
-    color: #4CAF50; /* Green for achieved degrees */
-}
-
-/* Next Courses Section */
-.next-courses-section {
-    background-color: var(--card-bg-light);
-    padding: 20px;
-    border-radius: var(--border-radius);
-    margin-bottom: 20px;
-    box-shadow: var(--box-shadow);
-    transition: background-color var(--transition-speed);
-}
-
-body.dark-mode .next-courses-section {
-    background-color: var(--card-bg-dark);
-}
-
-.next-courses-section h2 {
-    text-align: center;
-    color: var(--text-color-light);
-    margin-bottom: 15px;
-    transition: color var(--transition-speed);
-}
-
-body.dark-mode .next-courses-section h2 {
-    color: var(--text-color-dark);
-}
-
-.next-courses-list {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 10px;
-    justify-content: center;
-}
-
-.next-course-item {
-    background-color: var(--next-course-bg-light);
-    padding: 10px 15px;
-    border-radius: 5px;
-    font-size: 0.9em;
-    color: var(--text-color-light);
-    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
-    transition: background-color var(--transition-speed), color var(--transition-speed);
-}
-
-body.dark-mode .next-course-item {
-    background-color: var(--next-course-bg-dark);
-    color: var(--text-color-dark);
-}
-
-
-/* Curriculum Display */
-.cycle-section {
-    margin-bottom: 30px;
-}
-
-.cycle-title {
-    background-color: var(--header-bg-light);
-    color: var(--text-color-light);
-    padding: 15px 20px;
-    border-radius: var(--border-radius);
-    margin-bottom: 20px;
-    text-align: center;
-    font-size: 1.5em;
-    box-shadow: var(--box-shadow);
-    transition: background-color var(--transition-speed), color var(--transition-speed);
-}
-
-body.dark-mode .cycle-title {
-    background-color: var(--header-bg-dark);
-    color: var(--text-color-dark);
-}
-
-.semester-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-    gap: 20px;
-}
-
-.semester-card {
-    background-color: var(--card-bg-light);
-    border: 1px solid var(--border-color-light);
-    border-radius: var(--border-radius);
-    padding: 20px;
-    box-shadow: var(--box-shadow);
-    transition: background-color var(--transition-speed), border-color var(--transition-speed);
-}
-
-body.dark-mode .semester-card {
-    background-color: var(--card-bg-dark);
-    border-color: var(--border-color-dark);
-}
-
-.semester-card h3 {
-    text-align: center;
-    margin-top: 0;
-    color: var(--text-color-light);
-    transition: color var(--transition-speed);
-}
-
-body.dark-mode .semester-card h3 {
-    color: var(--text-color-dark);
-}
-
-.course-list {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-}
-
-.course-item {
-    background-color: var(--primary-bg-light); /* Lighter pastel for individual courses */
-    margin-bottom: 8px;
-    padding: 10px 15px;
-    border-radius: 5px;
-    cursor: pointer;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    font-size: 0.95em;
-    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
-    transition: background-color var(--transition-speed), transform 0.2s ease, color var(--transition-speed);
-    position: relative;
-    overflow: hidden; /* For the completion animation */
-}
-
-body.dark-mode .course-item {
-    background-color: var(--primary-bg-dark); /* Darker pastel for courses */
-}
-
-.course-item:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.1);
-}
-
-.course-name {
-    flex-grow: 1;
-    transition: text-decoration 0.3s ease;
-    color: var(--text-color-light);
-}
-
-body.dark-mode .course-name {
-    color: var(--text-color-dark);
-}
-
-.course-item.completed .course-name {
-    text-decoration: line-through;
-    color: #888; /* Dim completed courses */
-}
-
-body.dark-mode .course-item.completed .course-name {
-    color: #555;
-}
-
-/* Checkmark for completed courses */
-.course-item.completed::after {
-    content: '✓';
-    color: #4CAF50; /* Green checkmark */
-    font-size: 1.2em;
-    font-weight: bold;
-    margin-left: 10px;
-    opacity: 0;
-    transform: scale(0.5);
-    animation: checkmark-appear 0.3s forwards ease-out;
-}
-
-@keyframes checkmark-appear {
-    to {
-        opacity: 1;
-        transform: scale(1);
-    }
-}
-
-/* Area badges (these will not be applied to courses anymore as 'area' property is removed) */
-.course-area {
-    font-size: 0.7em;
-    padding: 3px 8px;
-    border-radius: 12px;
-    margin-left: 10px;
-    white-space: nowrap;
-    text-transform: uppercase;
-    font-weight: bold;
-    letter-spacing: 0.5px;
-    opacity: 0.7;
-}
-
-.AREA\.FORMACION\.BASICA {
-    background-color: #ffd1dc; /* Pastel Pink */
-    color: #d44961;
-}
-body.dark-mode .AREA\.FORMACION\.BASICA {
-    background-color: #6e4e5b;
-    color: #e9b3bd;
-}
-
-.AREA\.FORMACION\.DISCIPLINAR {
-    background-color: #c9efff; /* Pastel Blue */
-    color: #4092b7;
-}
-body.dark-mode .AREA\.FORMACION\.DISCIPLINAR {
-    background-color: #5b6e7e;
-    color: #add8eb;
-}
-
-.AREA\.FORMACION\.ELECTIVA {
-    background-color: #e6ccff; /* Pastel Purple */
-    color: #7b4c9e;
-}
-body.dark-mode .AREA\.FORMACION\.ELECTIVA {
-    background-color: #6a5e70;
-    color: #d1b4e0;
-}
-
-
-/* Responsive Design */
-@media (max-width: 768px) {
-    .container {
-        width: 95%;
-        padding: 15px;
-    }
-
-    header {
-        flex-direction: column;
-        text-align: center;
-        padding: 10px;
-    }
-
-    h1 {
-        font-size: 1.5em;
-        margin-bottom: 10px;
-    }
-
-    .theme-toggle {
-        font-size: 1.5em;
-    }
-
-    .semester-grid {
-        grid-template-columns: 1fr;
-    }
-
-    .semester-card {
-        padding: 15px;
-    }
-
-    .progress-section, .next-courses-section {
-        padding: 15px;
-    }
-}
-
-@media (max-width: 480px) {
-    h1 {
-        font-size: 1.3em;
-    }
-
-    .course-item {
-        font-size: 0.9em;
-        padding: 8px 10px;
-    }
-
-    .course-area {
-        font-size: 0.6em;
-        padding: 2px 5px;
-    }
+#texto-progreso {
+  position: absolute;
+  width: 100%;
+  text-align: center;
+  top: 0;
+  line-height: 25px;
+  font-weight: bold;
+  color: #333;
 }
