@@ -1,111 +1,66 @@
-// data.js - Corrected based on "Malla medi pdf.pdf"
-
-const curriculumData = {
-    "CICLO 1": {
-        "Semestre 1": [
-            { id: "s1_1", name: "Fundamentos de la medicina" },
-            { id: "s1_2", name: "Biologia molecular y genética" },
-            { id: "s1_3", name: "Anatomía humana I" },
-            { id: "s1_4", name: "Psicología para la atención en salud" }
-        ],
-        "Semestre 2": [
-            { id: "s2_1", name: "Histoembriologia I" },
-            { id: "s2_2", name: "Anatomía humana II" },
-            { id: "s2_3", name: "Fundamentos de bioquímica" },
-            { id: "s2_4", name: "Psicología en el curso de la vida" },
-            { id: "s2_5", name: "Salud y sociedad" }
-        ],
-        "Semestre 3": [
-            { id: "s3_1", name: "Semiologia I" },
-            { id: "s3_2", name: "Fisiología médica I" },
-            { id: "s3_3", name: "Histoembriología II" },
-            { id: "s3_4", name: "Neurociencias" },
-            { id: "s3_5", name: "Electivo 1" }
-        ],
-        "Semestre 4": [ // Extracted from "Semestre 5 Semestre 4" column
-            { id: "s4_1", name: "Semiología II" },
-            { id: "s4_2", name: "Atención primaria y alta prevalencia" },
-            { id: "s4_3", name: "Fisiología médica II" },
-            { id: "s4_4", name: "Integrado de patología morfofuncional I" },
-            { id: "s4_5", name: "Agentes infecciosos II" }, // Appears before Agentes infecciosos I in PDF
-            { id: "s4_6", name: "Agentes infecciosos I" },
-            { id: "s4_7", name: "Inmunologia e inmunización" },
-            { id: "s4_8", name: "Farmacología I" },
-            { id: "s4_9", name: "Electivo 2" }
-        ],
-        "Semestre 5": [ // Extracted from "Semestre 5 Semestre 4" column
-            { id: "s5_1", name: "Medicina Interna I" },
-            { id: "s5_2", name: "Medicina interna" }, // Listed again, assuming a different course or typo in source
-            { id: "s5_3", name: "Integrado de patología morfofuncional II" },
-            { id: "s5_4", name: "Métodos de diagnóstico clínico" },
-            { id: "s5_5", name: "Farmacologia II" },
-            { id: "s5_6", name: "Salud pública y epidemiología" },
-            { id: "s5_7", name: "Métodos de investigación en salud y bioestadística aplicada" },
-            { id: "s5_8", name: "Salud basada en la evidencia" },
-            { id: "s5_9", name: "Electivo 3" }
-        ],
-        "Semestre 6": [ // Extracted from "Semestre 7 Semestre 6" column
-            { id: "s6_1", name: "Cirugia" },
-            { id: "s6_2", name: "Traumatologia" },
-            { id: "s6_3", name: "Especialidades médicas II" },
-            { id: "s6_4", name: "Nutrición clínica" },
-            { id: "s6_5", name: "Gestión en sistemas de salud" },
-            { id: "s6_6", name: "Bioética" }
-        ],
-        "Semestre 7": [ // Extracted from "Semestre 7 Semestre 6" column
-            { id: "s7_1", name: "Medicina aplicada I" },
-            { id: "s7_2", name: "Pediatria, traumatología y cirugia infantil" },
-            { id: "s7_3", name: "Medicina legal" },
-            { id: "s7_4", name: "Psiquiatría infanto-juvenil y del adulto I" },
-            { id: "s7_5", name: "Oncología y cuidados paliativos" },
-            { id: "s7_6", name: "Electivo 4" }
-        ],
-        "Semestre 8": [
-            { id: "s8_1", name: "Medicina aplicada II" },
-            { id: "s8_2", name: "Ginecología y obstetricia" },
-            { id: "s8_3", name: "Especialidades médicas III" },
-            { id: "s8_4", name: "Psiquiatría infanto-juvenil y del adulto II" },
-            { id: "s8_5", name: "Inteligencia artificial aplicada a la salud" },
-            { id: "s8_6", name: "Electivo 5" }
-        ]
-    },
-    "CICLO 2": {
-        "Semestre 9": [
-            { id: "s9_1", name: "INTERNADO MEDICINA INTERNA" },
-            { id: "s9_2", name: "INTERNADO DE ATENCIÓN PRIMARIA" }
-        ],
-        "Semestre 10": [
-            { id: "s10_1", name: "INTERNADO DE PEDIATRIA" },
-            { id: "s10_2", name: "INTERNADO DE CIRUGÍA" }
-        ],
-        "Semestre 11": [ // Extracted from "Semestre 12 Semestre 11" column
-            { id: "s11_1", name: "INTERNADO DE PSIQUIATRÍA" },
-            { id: "s11_2", name: "INTERNADO DE SALUD EN PERSONA MAYOR" },
-            { id: "s11_3", name: "INTERNADO ELECTIVO I" }
-        ],
-        "Semestre 12": [ // Extracted from "Semestre 12 Semestre 11" column
-            { id: "s12_1", name: "INTERNADO DE URGENCIA" },
-            { id: "s12_2", name: "INTERNADO DE OBSTETRICIA Y GINECOLOGÍA" },
-            { id: "s12_3", name: "INTERNADO ELECTIVO II" }
-        ],
-        "Semestre 13": [ // No specific courses listed for this semester, but it exists
-            { id: "s13_1", name: "INTERNADO ELECTIVO III" } // Based on the placement in the last row
-        ],
-        "Semestre 14": [
-            { id: "s14_1", name: "INTEGRACIÓN PARA LA PRÁCTICA PROFESIONAL" }
-        ]
-    }
-};
-
-const degreeTitles = {
-    licenciado: "LICENCIADO(A) EN MEDICINA", // Retained from previous prompt as new PDF doesn't specify
-    medicoCirujano: "MÉDICO(A) CIRUJANO (A)" // Retained from previous prompt as new PDF doesn't specify
-};
-
-// Map semester numbers to keys for easier access
-const semesterOrder = [
-    "Semestre 1", "Semestre 2", "Semestre 3", "Semestre 4",
-    "Semestre 5", "Semestre 6", "Semestre 7", "Semestre 8",
-    "Semestre 9", "Semestre 10", "Semestre 11", "Semestre 12",
-    "Semestre 13", "Semestre 14"
+const ramos = [
+  { "id": "fundamentos_de_la_medicina", "nombre": "Fundamentos de la medicina", "semestre": 1, "prerequisitos": [] },
+  { "id": "biología_molecular_y_genética", "nombre": "Biología molecular y genética", "semestre": 1, "prerequisitos": [] },
+  { "id": "anatomía_humana_i", "nombre": "Anatomía humana I", "semestre": 1, "prerequisitos": [] },
+  { "id": "fundamentos_de_bioquímica", "nombre": "Fundamentos de bioquímica", "semestre": 1, "prerequisitos": [] },
+  { "id": "psicología_para_la_atención_en_salud", "nombre": "Psicología para la atención en salud", "semestre": 1, "prerequisitos": [] },
+  { "id": "salud_y_sociedad", "nombre": "Salud y sociedad", "semestre": 1, "prerequisitos": [] },
+  { "id": "histoembriología_i", "nombre": "Histoembriología I", "semestre": 2, "prerequisitos": [] },
+  { "id": "anatomía_humana_ii", "nombre": "Anatomía humana II", "semestre": 2, "prerequisitos": ["anatomía_humana_i"] },
+  { "id": "fisiología_médica_i", "nombre": "Fisiología médica I", "semestre": 2, "prerequisitos": [] },
+  { "id": "psicología_en_el_curso_de_la_vida", "nombre": "Psicología en el curso de la vida", "semestre": 2, "prerequisitos": [] },
+  { "id": "neurociencias", "nombre": "Neurociencias", "semestre": 2, "prerequisitos": [] },
+  { "id": "electivo_1", "nombre": "Electivo 1", "semestre": 2, "prerequisitos": [] },
+  { "id": "semiología_i", "nombre": "Semiología I", "semestre": 3, "prerequisitos": [] },
+  { "id": "histoembriología_ii", "nombre": "Histoembriología II", "semestre": 3, "prerequisitos": [] },
+  { "id": "fisiología_médica_ii", "nombre": "Fisiología médica II", "semestre": 3, "prerequisitos": [] },
+  { "id": "inmunología_e_inmunización", "nombre": "Inmunología e inmunización", "semestre": 3, "prerequisitos": [] },
+  { "id": "agentes_infecciosos_i", "nombre": "Agentes infecciosos I", "semestre": 3, "prerequisitos": [] },
+  { "id": "electivo_2", "nombre": "Electivo 2", "semestre": 3, "prerequisitos": [] },
+  { "id": "semiología_ii", "nombre": "Semiología II", "semestre": 4, "prerequisitos": ["semiología_i"] },
+  { "id": "agentes_infecciosos_ii", "nombre": "Agentes infecciosos II", "semestre": 4, "prerequisitos": ["agentes_infecciosos_i"] },
+  { "id": "farmacología_i", "nombre": "Farmacología I", "semestre": 4, "prerequisitos": [] },
+  { "id": "salud_pública_y_epidemiología", "nombre": "Salud pública y epidemiología", "semestre": 4, "prerequisitos": [] },
+  { "id": "integrado_de_patología_morfofuncional_i", "nombre": "Integrado de patología morfofuncional I", "semestre": 4, "prerequisitos": [] },
+  { "id": "electivo_3", "nombre": "Electivo 3", "semestre": 4, "prerequisitos": [] },
+  { "id": "atención_primaria_y_alta_prevalencia", "nombre": "Atención primaria y alta prevalencia", "semestre": 5, "prerequisitos": [] },
+  { "id": "farmacología_ii", "nombre": "Farmacología II", "semestre": 5, "prerequisitos": ["farmacología_i"] },
+  { "id": "métodos_de_diagnóstico_clínico", "nombre": "Métodos de diagnóstico clínico", "semestre": 5, "prerequisitos": [] },
+  { "id": "medicina_interna_i", "nombre": "Medicina interna I", "semestre": 5, "prerequisitos": [] },
+  { "id": "integrado_de_patología_morfofuncional_ii", "nombre": "Integrado de patología morfofuncional II", "semestre": 5, "prerequisitos": ["integrado_de_patología_morfofuncional_i"] },
+  { "id": "electivo_4", "nombre": "Electivo 4", "semestre": 5, "prerequisitos": [] },
+  { "id": "medicina_interna_ii", "nombre": "Medicina interna II", "semestre": 6, "prerequisitos": ["medicina_interna_i"] },
+  { "id": "salud_basada_en_la_evidencia", "nombre": "Salud basada en la evidencia", "semestre": 6, "prerequisitos": [] },
+  { "id": "especialidades_médicas_i", "nombre": "Especialidades médicas I", "semestre": 6, "prerequisitos": [] },
+  { "id": "métodos_de_investigación_en_salud_y_bioestadística_aplicada", "nombre": "Métodos de investigación en salud y bioestadística aplicada", "semestre": 6, "prerequisitos": [] },
+  { "id": "electivo_5", "nombre": "Electivo 5", "semestre": 6, "prerequisitos": [] },
+  { "id": "bioética", "nombre": "Bioética", "semestre": 6, "prerequisitos": [] },
+  { "id": "neurología", "nombre": "Neurología", "semestre": 7, "prerequisitos": [] },
+  { "id": "especialidades_médicas_ii", "nombre": "Especialidades médicas II", "semestre": 7, "prerequisitos": [] },
+  { "id": "cirugía", "nombre": "Cirugía", "semestre": 7, "prerequisitos": [] },
+  { "id": "medicina_aplicada_i", "nombre": "Medicina aplicada I", "semestre": 7, "prerequisitos": [] },
+  { "id": "traumatología", "nombre": "Traumatología", "semestre": 7, "prerequisitos": [] },
+  { "id": "nutrición_clínica", "nombre": "Nutrición clínica", "semestre": 7, "prerequisitos": [] },
+  { "id": "pediatría_traumatología_y_cirugía_infantil", "nombre": "Pediatría, traumatología y cirugía infantil", "semestre": 8, "prerequisitos": [] },
+  { "id": "medicina_aplicada_ii", "nombre": "Medicina aplicada II", "semestre": 8, "prerequisitos": [] },
+  { "id": "ginecología_y_obstetricia", "nombre": "Ginecología y obstetricia", "semestre": 8, "prerequisitos": [] },
+  { "id": "psiquiatría_infantojuvenil_y_del_adulto_i", "nombre": "Psiquiatría infanto-juvenil y del adulto I", "semestre": 8, "prerequisitos": [] },
+  { "id": "medicina_legal", "nombre": "Medicina legal", "semestre": 8, "prerequisitos": [] },
+  { "id": "gestión_en_sistemas_de_salud", "nombre": "Gestión en sistemas de salud", "semestre": 8, "prerequisitos": [] },
+  { "id": "psiquiatría_infantojuvenil_y_del_adulto_ii", "nombre": "Psiquiatría infanto-juvenil y del adulto II", "semestre": 9, "prerequisitos": ["psiquiatría_infantojuvenil_y_del_adulto_i"] },
+  { "id": "oncología_y_cuidados_paliativos", "nombre": "Oncología y cuidados paliativos", "semestre": 9, "prerequisitos": [] },
+  { "id": "inteligencia_artificial_aplicada_a_la_salud", "nombre": "Inteligencia artificial aplicada a la salud", "semestre": 9, "prerequisitos": [] },
+  { "id": "especialidades_médicas_iii", "nombre": "Especialidades médicas III", "semestre": 9, "prerequisitos": [] },
+  { "id": "internado_de_medicina_interna", "nombre": "Internado de medicina interna", "semestre": 10, "prerequisitos": [] },
+  { "id": "internado_de_atención_primaria", "nombre": "Internado de atención primaria", "semestre": 10, "prerequisitos": [] },
+  { "id": "internado_de_pediatría", "nombre": "Internado de pediatría", "semestre": 11, "prerequisitos": [] },
+  { "id": "internado_de_cirugía", "nombre": "Internado de cirugía", "semestre": 11, "prerequisitos": [] },
+  { "id": "internado_de_psiquiatría", "nombre": "Internado de psiquiatría", "semestre": 12, "prerequisitos": [] },
+  { "id": "internado_de_urgencia", "nombre": "Internado de urgencia", "semestre": 12, "prerequisitos": [] },
+  { "id": "internado_de_salud_en_persona_mayor", "nombre": "Internado de salud en persona mayor", "semestre": 13, "prerequisitos": [] },
+  { "id": "internado_de_obstetricia_y_ginecología", "nombre": "Internado de obstetricia y ginecología", "semestre": 13, "prerequisitos": [] },
+  { "id": "internado_electivo_i", "nombre": "Internado electivo I", "semestre": 14, "prerequisitos": [] },
+  { "id": "internado_electivo_ii", "nombre": "Internado electivo II", "semestre": 14, "prerequisitos": [] },
+  { "id": "internado_electivo_iii", "nombre": "Internado electivo III", "semestre": 14, "prerequisitos": [] },
+  { "id": "integración_para_la_práctica_profesional", "nombre": "Integración para la práctica profesional", "semestre": 14, "prerequisitos": [] }
 ];
