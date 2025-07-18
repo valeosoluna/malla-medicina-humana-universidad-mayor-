@@ -1,416 +1,447 @@
 :root {
-    /* Pastel Light Mode Colors */
-    --light-bg-color: #f7e1e6; /* Light Pink */
-    --light-text-color: #333;
-    --light-header-bg: #e0bbe4; /* Light Purple */
-    --light-semester-bg: #957dad; /* Medium Purple */
-    --light-course-bg: #d291bc; /* Rosy Pink */
-    --light-hover-bg: #ffcbf2; /* Lighter Pink */
-    --light-border-color: #c7a7d3; /* Soft Purple */
-    --light-toggle-bg: #ffeded; /* Very light pink for switch */
-    --light-toggle-slider: #c7a7d3; /* Soft purple for slider */
+    /* Light Mode Pastel Colors */
+    --background-light: #fefcfd; /* Very light pinkish-white */
+    --text-light: #333;
+    --header-background-light: #ffe0e6; /* Light pink */
+    --card-background-light: #f5f5f5; /* Off-white for cards */
+    --border-light: #ddd;
+    --progress-bar-fill-light: #bde0fe; /* Light blue */
+    --button-background-light: #cba8ed; /* Light purple */
+    --button-hover-light: #a47cdb;
+    --semester-header-light: #ffc4e2; /* Pinkish */
+    --completed-text-light: #5cb85c; /* Green for completed */
+    --tooltip-background-light: #333;
+    --tooltip-text-light: #fff;
 
-    /* Pastel Dark Mode Colors */
-    --dark-bg-color: #3a2e3f; /* Dark Purple-Grey */
-    --dark-text-color: #f0e6ef; /* Off-white for text */
-    --dark-header-bg: #5c4b5c; /* Muted Purple */
-    --dark-semester-bg: #7f6a7d; /* Deeper Muted Purple */
-    --dark-course-bg: #9b7a97; /* Dusky Rose */
-    --dark-hover-bg: #b08aae; /* Lighter Dusky Rose */
-    --dark-border-color: #4a3c4a; /* Darker Muted Purple */
-    --dark-toggle-bg: #2a202a; /* Very dark purple-grey for switch */
-    --dark-toggle-slider: #7f6a7d; /* Deeper muted purple for slider */
+    /* Dark Mode Pastel Colors */
+    --background-dark: #2c2a38; /* Dark purplish-grey */
+    --text-dark: #e0e0e0;
+    --header-background-dark: #4b485d; /* Darker purple */
+    --card-background-dark: #3a384f; /* Dark grey for cards */
+    --border-dark: #555;
+    --progress-bar-fill-dark: #81b2f0; /* Slightly desaturated blue */
+    --button-background-dark: #916cb0; /* Muted purple */
+    --button-hover-dark: #7b5993;
+    --semester-header-dark: #74517f; /* Muted darker pink/purple */
+    --completed-text-dark: #76c7c0; /* Teal for completed */
+    --tooltip-background-dark: #e0e0e0;
+    --tooltip-text-dark: #333;
 
-    /* General */
-    --transition-speed: 0.3s ease-in-out;
+    /* General styles */
     --border-radius: 8px;
+    --padding-medium: 20px;
+    --transition-speed: 0.3s ease;
 }
 
 body {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     margin: 0;
-    padding: 20px;
-    background-color: var(--light-bg-color);
-    color: var(--light-text-color);
+    padding: 0;
+    line-height: 1.6;
     transition: background-color var(--transition-speed), color var(--transition-speed);
 }
 
-/* Dark Mode Styles */
-body.dark-mode {
-    background-color: var(--dark-bg-color);
-    color: var(--dark-text-color);
+/* Light Mode */
+body.light-mode {
+    background-color: var(--background-light);
+    color: var(--text-light);
 }
 
-header {
-    background-color: var(--light-header-bg);
-    padding: 20px 30px;
-    border-radius: var(--border-radius);
-    margin-bottom: 20px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    transition: background-color var(--transition-speed);
+body.light-mode header {
+    background-color: var(--header-background-light);
+    color: var(--text-light);
+}
+
+body.light-mode main section {
+    background-color: var(--card-background-light);
+    border: 1px solid var(--border-light);
+}
+
+body.light-mode .progress-bar-fill {
+    background-color: var(--progress-bar-fill-light);
+}
+
+body.light-mode .semester-header {
+    background-color: var(--semester-header-light);
+    border-bottom: 1px solid var(--border-light);
+}
+
+body.light-mode .course-item.completed label {
+    color: var(--completed-text-light);
+}
+
+body.light-mode .theme-switcher .icon {
+    color: var(--text-light);
+}
+
+/* Dark Mode */
+body.dark-mode {
+    background-color: var(--background-dark);
+    color: var(--text-dark);
 }
 
 body.dark-mode header {
-    background-color: var(--dark-header-bg);
+    background-color: var(--header-background-dark);
+    color: var(--text-dark);
 }
 
-h1 {
-    color: inherit;
-    margin: 0;
+body.dark-mode main section {
+    background-color: var(--card-background-dark);
+    border: 1px solid var(--border-dark);
 }
 
-.theme-switch-wrapper {
+body.dark-mode .progress-bar-fill {
+    background-color: var(--progress-bar-fill-dark);
+}
+
+body.dark-mode .semester-header {
+    background-color: var(--semester-header-dark);
+    border-bottom: 1px solid var(--border-dark);
+}
+
+body.dark-mode .course-item.completed label {
+    color: var(--completed-text-dark);
+}
+
+body.dark-mode .theme-switcher .icon {
+    color: var(--text-dark);
+}
+
+
+header {
     display: flex;
+    justify-content: space-between;
     align-items: center;
-}
-
-.theme-switch {
-    position: relative;
-    display: inline-block;
-    width: 60px;
-    height: 34px;
-    margin-right: 10px;
-}
-
-.theme-switch input {
-    opacity: 0;
-    width: 0;
-    height: 0;
-}
-
-.slider {
-    position: absolute;
-    cursor: pointer;
+    padding: var(--padding-medium);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    position: sticky;
     top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background-color: var(--light-toggle-bg);
-    transition: var(--transition-speed);
-    border-radius: 34px;
+    z-index: 1000;
 }
 
-body.dark-mode .slider {
-    background-color: var(--dark-toggle-bg);
+header h1 {
+    margin: 0;
+    font-size: 1.8em;
 }
 
-.slider:before {
-    position: absolute;
-    content: "";
-    height: 26px;
-    width: 26px;
-    left: 4px;
-    bottom: 4px;
-    background-color: var(--light-toggle-slider);
-    transition: var(--transition-speed);
+.theme-switcher {
+    cursor: pointer;
+    font-size: 1.5em;
+    padding: 5px;
     border-radius: 50%;
-}
-
-body.dark-mode .slider:before {
-    background-color: var(--dark-toggle-slider);
-}
-
-input:checked + .slider {
-    background-color: var(--light-toggle-bg); /* Stays light for checked state */
-}
-
-body.dark-mode input:checked + .slider {
-    background-color: var(--dark-toggle-bg); /* Stays dark for checked state */
-}
-
-input:checked + .slider:before {
-    transform: translateX(26px);
-}
-
-.slider.round {
-    border-radius: 34px;
-}
-
-.slider.round:before {
-    border-radius: 50%;
-}
-
-.theme-text {
-    color: inherit;
-}
-
-.cycle-section {
-    background-color: var(--light-semester-bg);
-    border-radius: var(--border-radius);
-    margin-bottom: 20px;
-    padding: 20px;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.08);
     transition: background-color var(--transition-speed);
+    position: relative; /* For tooltip */
 }
 
-body.dark-mode .cycle-section {
-    background-color: var(--dark-semester-bg);
+.theme-switcher:hover {
+    background-color: rgba(0, 0, 0, 0.05);
+}
+body.dark-mode .theme-switcher:hover {
+    background-color: rgba(255, 255, 255, 0.1);
 }
 
-.cycle-section h2 {
-    color: var(--light-text-color);
+
+main {
+    padding: var(--padding-medium);
+    max-width: 1200px;
+    margin: 20px auto;
+}
+
+section {
+    border-radius: var(--border-radius);
+    padding: var(--padding-medium);
+    margin-bottom: var(--padding-medium);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
+    transition: background-color var(--transition-speed), border-color var(--transition-speed);
+}
+
+/* Progress Section */
+.progress-section h2 {
+    text-align: center;
     margin-top: 0;
-    border-bottom: 2px solid var(--light-border-color);
-    padding-bottom: 10px;
     margin-bottom: 15px;
-    transition: color var(--transition-speed), border-color var(--transition-speed);
+    font-size: 1.5em;
 }
 
-body.dark-mode .cycle-section h2 {
-    color: var(--dark-text-color);
-    border-color: var(--dark-border-color);
-}
-
-.semester {
-    background-color: var(--light-course-bg);
+.progress-bar-container {
+    width: 100%;
+    background-color: var(--border-light); /* Lighter than card background */
     border-radius: var(--border-radius);
-    padding: 15px 20px;
-    margin-bottom: 15px;
+    height: 25px;
+    overflow: hidden;
+    margin-bottom: 10px;
+    position: relative;
     transition: background-color var(--transition-speed);
 }
+body.dark-mode .progress-bar-container {
+    background-color: var(--border-dark);
+}
 
-body.dark-mode .semester {
-    background-color: var(--dark-course-bg);
+.progress-bar-fill {
+    height: 100%;
+    width: 0%; /* Initial width */
+    border-radius: var(--border-radius);
+    text-align: center;
+    line-height: 25px;
+    color: white;
+    font-weight: bold;
+    transition: width 0.5s ease-out, background-color var(--transition-speed);
+}
+
+.progress-text {
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    color: inherit; /* Inherit text color from parent */
+    font-weight: bold;
+    line-height: 25px;
+}
+
+.progress-section p {
+    text-align: center;
+    margin-bottom: 0;
+}
+
+/* Next Courses Section */
+.next-courses-section ul {
+    list-style: none;
+    padding: 0;
+    margin-top: 15px;
+}
+
+.next-courses-section ul li {
+    background-color: rgba(var(--progress-bar-fill-light), 0.1); /* Light tint of progress bar color */
+    padding: 8px 12px;
+    margin-bottom: 8px;
+    border-radius: 5px;
+    border: 1px solid var(--progress-bar-fill-light);
+    transition: background-color var(--transition-speed), border-color var(--transition-speed);
+}
+body.dark-mode .next-courses-section ul li {
+    background-color: rgba(var(--progress-bar-fill-dark), 0.1);
+    border: 1px solid var(--progress-bar-fill-dark);
+}
+
+.next-courses-section h2 {
+    margin-top: 0;
+    margin-bottom: 10px;
+    font-size: 1.4em;
+}
+
+/* Curriculum Section */
+.semester {
+    margin-bottom: 15px;
+    border-radius: var(--border-radius);
+    overflow: hidden; /* Ensures border-radius applies to header */
 }
 
 .semester-header {
+    padding: 15px var(--padding-medium);
     cursor: pointer;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    font-size: 1.1em;
+    font-size: 1.2em;
     font-weight: bold;
-    color: var(--light-text-color);
-    transition: color var(--transition-speed);
-}
-
-body.dark-mode .semester-header {
-    color: var(--dark-text-color);
+    transition: background-color var(--transition-speed);
 }
 
 .semester-header:hover {
-    color: var(--light-hover-bg);
+    filter: brightness(0.95); /* Slightly darker on hover */
 }
-
 body.dark-mode .semester-header:hover {
-    color: var(--dark-hover-bg);
+    filter: brightness(1.1); /* Slightly lighter on hover */
 }
 
-.toggle-icon {
-    font-size: 1.2em;
-    font-weight: bold;
-    transition: transform var(--transition-speed);
+
+.semester-header .toggle-icon {
+    font-size: 0.8em;
+    margin-left: 10px;
+    transition: transform 0.3s ease;
+    position: relative; /* For tooltip */
+}
+
+.semester-header.collapsed .toggle-icon {
+    transform: rotate(0deg);
+}
+.semester-header:not(.collapsed) .toggle-icon {
+    transform: rotate(180deg);
 }
 
 .course-list {
     list-style: none;
-    padding: 0;
-    margin-top: 10px;
+    padding: 10px var(--padding-medium) 0; /* Adjust padding for expanded list */
+    margin: 0;
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.4s ease-out, padding 0.4s ease-out; /* Smooth transition for expand/collapse */
 }
 
-.course-list li {
+.course-list[style*="block"] {
+    max-height: 1000px; /* Large enough value to show all content */
+    padding: 10px var(--padding-medium) 15px;
+}
+
+
+.course-item {
     display: flex;
     align-items: center;
-    margin-bottom: 8px;
-    padding: 5px 0;
-    border-bottom: 1px dashed var(--light-border-color);
+    padding: 8px 0;
+    border-bottom: 1px dashed var(--border-light);
     transition: border-color var(--transition-speed);
 }
+body.dark-mode .course-item {
+    border-bottom: 1px dashed var(--border-dark);
+}
 
-body.dark-mode .course-list li {
-    border-color: var(--dark-border-color);
+.course-item:last-child {
+    border-bottom: none;
 }
 
 .course-checkbox {
     margin-right: 10px;
+    transform: scale(1.2); /* Make checkbox slightly larger */
     cursor: pointer;
-    appearance: none; /* Hide default checkbox */
-    width: 20px;
-    height: 20px;
-    border: 2px solid var(--light-border-color);
-    border-radius: 4px;
-    position: relative;
-    display: grid;
-    place-content: center;
-    transition: border-color var(--transition-speed), background-color var(--transition-speed);
 }
 
-body.dark-mode .course-checkbox {
-    border-color: var(--dark-border-color);
-}
-
-.course-checkbox::before {
-    content: "";
-    width: 12px;
-    height: 12px;
-    transform: scale(0);
-    transition: 120ms transform ease-in-out;
-    box-shadow: inset 1em 1em var(--light-semester-bg);
-    background-color: var(--light-semester-bg);
-    border-radius: 2px;
-}
-
-body.dark-mode .course-checkbox::before {
-    box-shadow: inset 1em 1em var(--dark-semester-bg);
-    background-color: var(--dark-semester-bg);
-}
-
-.course-checkbox:checked::before {
-    transform: scale(1);
-}
-
-.course-checkbox:focus {
-    outline: 2px solid var(--light-semester-bg);
-    outline-offset: 2px;
-}
-
-body.dark-mode .course-checkbox:focus {
-    outline-color: var(--dark-semester-bg);
-}
-
-
-.course-name {
+.course-item label {
     cursor: pointer;
     flex-grow: 1;
-    font-size: 1em;
-    color: var(--light-text-color);
-    transition: color var(--transition-speed);
+    transition: text-decoration 0.3s ease, color 0.3s ease;
 }
 
-body.dark-mode .course-name {
-    color: var(--dark-text-color);
-}
-
-.course-name.completed {
+.course-item.completed label {
     text-decoration: line-through;
-    color: #888; /* Slightly greyed out for completed */
+    font-style: italic;
 }
 
-body.dark-mode .course-name.completed {
-    color: #bbb;
+/* Tooltip styles */
+[data-tooltip] {
+    position: relative;
 }
 
-.course-area {
-    font-size: 0.8em;
-    color: #666;
-    background-color: var(--light-hover-bg);
-    padding: 3px 8px;
-    border-radius: 5px;
-    margin-left: 10px;
-    transition: background-color var(--transition-speed), color var(--transition-speed);
-}
-
-body.dark-mode .course-area {
-    background-color: var(--dark-hover-bg);
-    color: #ddd;
-}
-
-.program-details {
-    background-color: var(--light-header-bg);
-    padding: 20px 30px;
-    border-radius: var(--border-radius);
-    margin-top: 20px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    transition: background-color var(--transition-speed);
-}
-
-body.dark-mode .program-details {
-    background-color: var(--dark-header-bg);
-}
-
-.program-details h2, .program-details h3 {
-    color: inherit;
-    margin-top: 0;
-    border-bottom: 1px solid var(--light-border-color);
-    padding-bottom: 5px;
-    margin-bottom: 10px;
-    transition: border-color var(--transition-speed);
-}
-
-body.dark-mode .program-details h2, body.dark-mode .program-details h3 {
-    border-color: var(--dark-border-color);
-}
-
-.program-details p, .program-details ul {
-    margin-bottom: 10px;
-    color: inherit;
-}
-
-.program-details ul {
-    padding-left: 20px;
-    list-style: disc;
-}
-
-/* Tooltips */
-[title]:hover:after {
-    content: attr(title);
+[data-tooltip]:hover::after {
+    content: attr(data-tooltip);
     position: absolute;
-    background-color: rgba(0, 0, 0, 0.8);
-    color: #fff;
-    padding: 5px 10px;
-    border-radius: 5px;
+    background-color: var(--tooltip-background-light);
+    color: var(--tooltip-text-light);
+    padding: 5px 8px;
+    border-radius: 4px;
+    font-size: 0.8em;
     white-space: nowrap;
-    z-index: 10;
-    transform: translateY(-10px);
+    z-index: 9999;
+    bottom: 120%; /* Position above the element */
+    left: 50%;
+    transform: translateX(-50%);
     opacity: 0;
-    animation: fadeIn 0.3s forwards;
-    pointer-events: none; /* Allows clicks on elements behind the tooltip */
+    visibility: hidden;
+    transition: opacity 0.3s ease, visibility 0.3s ease;
+}
+body.dark-mode [data-tooltip]:hover::after {
+    background-color: var(--tooltip-background-dark);
+    color: var(--tooltip-text-dark);
 }
 
-@keyframes fadeIn {
-    from { opacity: 0; transform: translateY(-10px); }
-    to { opacity: 1; transform: translateY(0); }
+
+[data-tooltip]:hover::before {
+    content: '';
+    position: absolute;
+    border-width: 5px;
+    border-style: solid;
+    border-color: var(--tooltip-background-light) transparent transparent transparent;
+    bottom: 115%;
+    left: 50%;
+    transform: translateX(-50%);
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s ease, visibility 0.3s ease;
+    z-index: 9999;
+}
+body.dark-mode [data-tooltip]:hover::before {
+    border-color: var(--tooltip-background-dark) transparent transparent transparent;
 }
 
+
+[data-tooltip]:hover::after,
+[data-tooltip]:hover::before {
+    opacity: 1;
+    visibility: visible;
+}
+
+
+footer {
+    text-align: center;
+    padding: 20px;
+    margin-top: 30px;
+    border-top: 1px solid var(--border-light);
+    color: #666;
+    transition: border-color var(--transition-speed), color var(--transition-speed);
+}
+body.dark-mode footer {
+    border-top: 1px solid var(--border-dark);
+    color: #999;
+}
 
 /* Responsive Design */
 @media (max-width: 768px) {
-    header {
-        flex-direction: column;
-        align-items: flex-start;
+    header h1 {
+        font-size: 1.5em;
+    }
+
+    main {
         padding: 15px;
     }
 
-    .theme-switch-wrapper {
-        margin-top: 10px;
-    }
-
-    body {
-        padding: 10px;
-    }
-
-    .cycle-section, .program-details {
+    section {
         padding: 15px;
     }
 
-    .semester {
-        padding: 10px 15px;
+    .semester-header {
+        font-size: 1.1em;
+        padding: 12px 15px;
+    }
+
+    .course-list {
+        padding: 8px 15px 12px;
     }
 }
 
 @media (max-width: 480px) {
-    h1 {
-        font-size: 1.8em;
+    header {
+        flex-direction: column;
+        align-items: flex-start;
+        padding: 10px 15px;
+    }
+
+    header h1 {
+        margin-bottom: 10px;
+        font-size: 1.3em;
+    }
+
+    .theme-switcher {
+        align-self: flex-end;
+    }
+
+    main {
+        padding: 10px;
+    }
+
+    section {
+        padding: 10px;
+        margin-bottom: 10px;
     }
 
     .semester-header {
         font-size: 1em;
+        padding: 10px;
     }
 
-    .course-list li {
-        flex-direction: column;
-        align-items: flex-start;
+    .course-list {
+        padding: 5px 10px 10px;
     }
 
-    .course-checkbox {
-        margin-bottom: 5px;
-    }
-
-    .course-area {
-        margin-left: 0;
-        margin-top: 5px;
+    .course-item label {
+        font-size: 0.9em;
     }
 }
