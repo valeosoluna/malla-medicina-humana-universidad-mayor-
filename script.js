@@ -46,45 +46,52 @@ document.addEventListener('DOMContentLoaded', () => {
             const semesterGrid = document.createElement('div');
             semesterGrid.classList.add('semester-grid');
 
-            for (const semester in curriculumData[cycle]) {
-                semesterCounter++;
-                const semesterCard = document.createElement('div');
-                semesterCard.classList.add('semester-card');
+            for (const semester of semesterOrder) { // Iterate using semesterOrder to maintain sequence
+                if (curriculumData[cycle][semester]) { // Only process if the semester exists in the current cycle
+                    semesterCounter++;
+                    const semesterCard = document.createElement('div');
+                    semesterCard.classList.add('semester-card');
 
-                const semesterTitle = document.createElement('h3');
-                semesterTitle.textContent = semester;
-                semesterCard.appendChild(semesterTitle);
+                    const semesterTitle = document.createElement('h3');
+                    semesterTitle.textContent = semester;
+                    semesterCard.appendChild(semesterTitle);
 
-                const courseList = document.createElement('ul');
-                courseList.classList.add('course-list');
+                    const courseList = document.createElement('ul');
+                    courseList.classList.add('course-list');
 
-                curriculumData[cycle][semester].forEach(course => {
-                    const courseItem = document.createElement('li');
-                    courseItem.classList.add('course-item');
-                    courseItem.dataset.id = course.id;
-                    courseItem.dataset.semester = semester; // Store semester for later use
+                    curriculumData[cycle][semester].forEach(course => {
+                        const courseItem = document.createElement('li');
+                        courseItem.classList.add('course-item');
+                        courseItem.dataset.id = course.id;
+                        courseItem.dataset.semester = semester; // Store semester for later use
 
-                    if (completedCourses[course.id]) {
-                        courseItem.classList.add('completed');
-                    }
+                        if (completedCourses[course.id]) {
+                            courseItem.classList.add('completed');
+                        }
 
-                    const courseNameSpan = document.createElement('span');
-                    courseNameSpan.classList.add('course-name');
-                    courseNameSpan.textContent = course.name;
-                    courseItem.appendChild(courseNameSpan);
+                        const courseNameSpan = document.createElement('span');
+                        courseNameSpan.classList.add('course-name');
+                        courseNameSpan.textContent = course.name;
+                        courseItem.appendChild(courseNameSpan);
 
-                    const courseAreaSpan = document.createElement('span');
-                    // Sanitize area name for class name (remove spaces and dots)
-                    const areaClassName = course.area.replace(/[^a-zA-Z0-9]/g, '.');
-                    courseAreaSpan.classList.add('course-area', areaClassName);
-                    courseAreaSpan.textContent = course.area.replace('AREA FORMACION ', ''); // Shorten text for badge
-                    courseItem.appendChild(courseAreaSpan);
+                        // Removed area badge creation as 'area' property is no longer in data.js
+                        // If you re-introduce 'area' property, uncomment this section:
+                        /*
+                        if (course.area) {
+                            const courseAreaSpan = document.createElement('span');
+                            const areaClassName = course.area.replace(/[^a-zA-Z0-9]/g, '.');
+                            courseAreaSpan.classList.add('course-area', areaClassName);
+                            courseAreaSpan.textContent = course.area.replace('AREA FORMACION ', '');
+                            courseItem.appendChild(courseAreaSpan);
+                        }
+                        */
 
-                    courseItem.addEventListener('click', () => toggleCourseCompletion(course.id, semesterCounter));
-                    courseList.appendChild(courseItem);
-                });
-                semesterCard.appendChild(courseList);
-                semesterGrid.appendChild(semesterCard);
+                        courseItem.addEventListener('click', () => toggleCourseCompletion(course.id, semesterCounter));
+                        courseList.appendChild(courseItem);
+                    });
+                    semesterCard.appendChild(courseList);
+                    semesterGrid.appendChild(semesterCard);
+                }
             }
             cycleSection.appendChild(semesterGrid);
             curriculumContainer.appendChild(cycleSection);
@@ -150,6 +157,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // --- Update Degree Status ---
     function updateDegreeStatus() {
+        // This logic assumes "Ciclo 1" directly maps to "Licenciado" for simplicity,
+        // as the new PDF does not specify degree requirements.
         const totalCoursesCiclo1 = Object.values(curriculumData["CICLO 1"]).flat().length;
         let completedCiclo1 = 0;
         Object.values(curriculumData["CICLO 1"]).flat().forEach(course => {
