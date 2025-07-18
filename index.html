@@ -1,49 +1,34 @@
-<!DOCTYPE html> 
- <html lang="es"> 
- <head> 
-     <meta charset="UTF-8"> 
-     <meta name="viewport" content="width=device-width, initial-scale=1.0"> 
-     <title>Malla Curricular Medicina</title> 
-     <link rel="stylesheet" href="style.css"> 
- </head> 
- <body> 
-     <div class="header"> 
-         <h1>Malla Curricular Medicina</h1> 
-         <div class="progress-container"> 
-             <div class="progress-bar" id="progressBar"></div> 
-             <span class="progress-text" id="progressText">0%</span> 
-         </div> 
-         <div class="average-grade-container"> 
-             <span class="average-grade-text" id="averageGradeText">Promedio de ramos aprobados: N/A</span> 
-         </div> 
-     </div> 
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Progreso de Carrera de Medicina</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Progreso de Carrera de Medicina</h1>
 
-     <div class="main-content"> 
-         <div class="semesters-container" id="semestersContainer"> 
-             </div> 
-     </div> 
+        <div class="progress-bar-container">
+            <div class="progress-bar-label">Avance General: <span id="progress-percentage">0%</span></div>
+            <div class="progress-bar">
+                <div id="progress-fill" class="progress-fill"></div>
+            </div>
+        </div>
 
-     <div class="recommendations-container"> 
-         <h2>Recomendación de Ramos (Máx. 6)</h2> 
-         <div id="recommendedCourses"> 
-             </div> 
-         <button id="refreshRecommendations">Actualizar Recomendaciones</button> 
-     </div> 
+        <div class="next-courses-section">
+            <h2>Próximos Ramos Recomendados (Máx. 6)</h2>
+            <div id="next-courses-list" class="next-courses-list">
+                </div>
+            <p class="next-courses-tip">Selecciona los ramos que planeas tomar en tu próximo semestre.</p>
+        </div>
 
-     <div id="courseModal" class="modal"> 
-         <div class="modal-content"> 
-             <span class="close-button">&times;</span> 
-             <h2 id="modalCourseName"></h2> 
-             <p><strong>Semestre:</strong> <span id="modalCourseSemester"></span></p> 
-             <p><strong>Área:</strong> <span id="modalCourseArea"></span></p> 
-             <p><strong>Descripción:</strong> <span id="modalCourseDescription"></span></p> 
-             <p><strong>Prerrequisitos:</strong> <span id="modalCoursePrerequisites"></span></p> 
-             <button id="markAsApprovedBtn" class="modal-button approve">Marcar como Aprobado</button> 
-             <button class="modal-button close">Cerrar</button> 
-         </div> 
-     </div> 
+        <div id="course-list" class="course-list">
+            </div>
+    </div>
 
-     <script src="data.js"></script> 
-     <script src="script.js"></script> 
- </body> 
- </html>
+    <script src="data.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>
