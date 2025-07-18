@@ -132,8 +132,9 @@ body {
 }
 
 .main-content {
-    overflow-x: auto;
+    overflow-x: auto; /* Permite desplazamiento horizontal si los semestres no caben */
     padding-bottom: 20px;
+    margin-top: 20px;
 }
 
 .semesters-container {
@@ -143,12 +144,13 @@ body {
     background-color: var(--container-bg);
     border-radius: 10px;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-    min-width: fit-content;
+    min-width: fit-content; /* Asegura que el contenedor se expanda para todos los semestres */
+    justify-content: flex-start; /* Alinea los semestres al inicio */
 }
 
 .semester {
-    flex-shrink: 0;
-    width: 200px; /* Ancho ajustado para mejor visualización */
+    flex-shrink: 0; /* Evita que los semestres se encojan */
+    width: 200px; /* Ancho fijo para cada columna de semestre */
     background-color: var(--semester-bg);
     padding: 15px;
     border-radius: 8px;
@@ -156,7 +158,7 @@ body {
     font-weight: bold;
     color: var(--secondary-text-color);
     box-shadow: inset 0 2px 5px rgba(0, 0, 0, 0.1);
-    border: 1px solid var(--border-color, #E0E0E0); /* Borde suave */
+    border: 1px solid var(--border-color, #E0E0E0);
 }
 
 .semester h3 {
@@ -175,15 +177,15 @@ body {
 
 .course-box {
     background-color: var(--course-box-default-bg);
-    color: var(--text-color); /* Color de texto que contraste bien */
+    color: var(--text-color);
     padding: 12px;
     border-radius: 8px;
     text-align: center;
     cursor: pointer;
-    transition: background-color 0.3s ease, opacity 0.3s ease, border-color 0.3s ease, color 0.3s ease;
+    transition: background-color 0.3s ease, opacity 0.3s ease, border-color 0.3s ease, color 0.3s ease, transform 0.2s ease, box-shadow 0.2s ease;
     box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
     position: relative;
-    border: 2px solid transparent; /* Borde para el color de área */
+    border: 2px solid transparent;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -195,8 +197,8 @@ body {
 
 .course-box:hover:not(.approved):not(.blocked) {
     opacity: 0.85;
-    transform: translateY(-2px); /* Pequeño efecto de elevación */
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
 }
 
 /* Colores de borde por área */
@@ -212,7 +214,7 @@ body {
 
 .course-box.approved {
     background-color: var(--course-box-approved-bg);
-    color: var(--text-color); /* Mantener color de texto que contraste */
+    color: var(--text-color);
     text-decoration: line-through;
     cursor: default;
     opacity: 0.9;
@@ -290,16 +292,16 @@ body {
 
 /* Modal Styles */
 .modal {
-    display: none;
+    /* Mantiene display: none; por defecto y se activa con JS */
     position: fixed;
-    z-index: 1000; /* Asegura que esté por encima de todo */
+    z-index: 1000;
     left: 0;
     top: 0;
     width: 100%;
     height: 100%;
     overflow: auto;
     background-color: rgba(0, 0, 0, 0.5);
-    display: flex;
+    display: flex; /* Usar flexbox para centrar contenido */
     align-items: center;
     justify-content: center;
 }
@@ -315,6 +317,12 @@ body {
     position: relative;
     text-align: left;
     color: var(--text-color);
+    animation: fadeIn 0.3s ease-out; /* Animación de aparición */
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: scale(0.95); }
+    to { opacity: 1; transform: scale(1); }
 }
 
 .modal-content h2 {
@@ -342,13 +350,13 @@ body {
     top: 10px;
     right: 20px;
     cursor: pointer;
-    transition: color 0.3s ease;
+    transition: color 0.3s ease, transform 0.2s ease;
 }
 
 .close-button:hover,
 .close-button:focus {
     color: var(--button-danger-bg);
-    text-decoration: none;
+    transform: rotate(90deg);
 }
 
 .modal-button {
@@ -389,5 +397,152 @@ body {
     right: 20px;
     padding: 10px 15px;
     font-size: 0.9em;
-    z-index: 10; /* Asegura que esté por encima de otros elementos */
+    z-index: 10;
+    background-color: var(--button-primary-bg); /* Asegura que use la variable */
+    color: white;
+    border-radius: 50%; /* Botón circular */
+    width: 45px; /* Ancho y alto para que sea un círculo perfecto */
+    height: 45px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.2em; /* Tamaño del icono */
+    box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+}
+
+#themeToggleButton:hover {
+    background-color: var(--button-primary-hover-bg);
+    transform: scale(1.05); /* Pequeña escala al pasar el ratón */
+}
+
+
+/* --- Responsive Design --- */
+@media (max-width: 1200px) {
+    .semesters-container {
+        gap: 15px;
+        padding: 15px;
+    }
+
+    .semester {
+        width: 180px; /* Un poco más estrecho para pantallas medianas */
+    }
+}
+
+@media (max-width: 992px) {
+    body {
+        padding: 15px;
+    }
+
+    .header {
+        padding: 15px;
+    }
+
+    .progress-container {
+        width: 90%;
+    }
+
+    .semesters-container {
+        flex-wrap: wrap; /* Permite que los semestres se envuelvan a la siguiente línea */
+        justify-content: center; /* Centra los semestres cuando se envuelven */
+        gap: 20px;
+    }
+
+    .semester {
+        width: 45%; /* Dos columnas por fila en tabletas */
+        min-width: 250px; /* Ancho mínimo para que no se aprieten demasiado */
+    }
+
+    .recommendations-container {
+        padding: 20px;
+    }
+
+    #recommendedCourses .course-box {
+        width: 48%; /* Ajuste para dos columnas en recomendaciones */
+    }
+}
+
+@media (max-width: 768px) {
+    .header h1 {
+        font-size: 1.8em;
+    }
+
+    .semester {
+        width: 100%; /* Una columna por fila en móviles */
+        max-width: 300px; /* Limita el ancho en pantallas muy pequeñas */
+    }
+
+    .semesters-container {
+        flex-direction: column; /* Apila los semestres verticalmente en móviles */
+        align-items: center; /* Centra los semestres apilados */
+    }
+
+    .course-box {
+        font-size: 0.9em;
+        min-height: 45px;
+    }
+
+    #recommendedCourses .course-box {
+        width: 100%; /* Una columna para recomendaciones en móviles */
+    }
+
+    .modal-content {
+        width: 95%;
+        padding: 20px;
+    }
+
+    .modal-button {
+        width: 100%;
+        margin-left: 0;
+        margin-bottom: 10px; /* Espacio entre botones del modal */
+    }
+
+    .modal-button.close {
+        margin-left: 0;
+    }
+}
+
+/* Tooltip base styles */
+[title]:hover::after {
+    content: attr(title);
+    position: absolute;
+    background-color: rgba(0, 0, 0, 0.8);
+    color: #fff;
+    padding: 5px 10px;
+    border-radius: 5px;
+    font-size: 0.85em;
+    white-space: nowrap;
+    z-index: 1001; /* Asegura que el tooltip esté sobre todo */
+    bottom: 120%; /* Posiciona encima del elemento */
+    left: 50%;
+    transform: translateX(-50%);
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s ease, visibility 0.3s ease;
+}
+
+[title]:hover::before {
+    content: '';
+    position: absolute;
+    bottom: 115%; /* Alinea con la punta del tooltip */
+    left: 50%;
+    transform: translateX(-50%);
+    border-width: 5px;
+    border-style: solid;
+    border-color: rgba(0, 0, 0, 0.8) transparent transparent transparent;
+    z-index: 1001;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s ease, visibility 0.3s ease;
+}
+
+[title]:hover::after,
+[title]:hover::before {
+    opacity: 1;
+    visibility: visible;
+}
+
+/* Ajustes específicos para tooltips de botones */
+#themeToggleButton[title]:hover::after,
+#themeToggleButton[title]:hover::before {
+    bottom: 140%; /* Un poco más arriba para el botón circular */
 }
