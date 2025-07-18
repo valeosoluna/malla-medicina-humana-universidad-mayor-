@@ -1,81 +1,98 @@
-let aprobados = new Set(JSON.parse(localStorage.getItem("aprobados")) || []);
-let modoOscuro = localStorage.getItem("modoOscuro") === "true";
+document.addEventListener('DOMContentLoaded', () => {
+    const courseGrid = document.getElementById('course-grid');
+    const licenciateTitle = document.getElementById('licenciate-title');
+    const professionalTitle = document.getElementById('professional-title');
+    const programNotes = document.getElementById('program-notes');
+    const themeToggle = document.getElementById('checkbox');
 
-document.addEventListener("DOMContentLoaded", () => {
-  const container = document.getElementById("malla-container");
-  const modoBtn = document.getElementById("modo-btn");
-  const barra = document.getElementById("barra-progreso");
-  const texto = document.getElementById("texto-progreso");
-
-  if (modoOscuro) document.body.classList.add("oscuro");
-
-  modoBtn.onclick = () => {
-    document.body.classList.toggle("oscuro");
-    modoOscuro = document.body.classList.contains("oscuro");
-    localStorage.setItem("modoOscuro", modoOscuro);
-  };
-
-  const total = ramos.length;
-
-  function puedeTomar(r) {
-    return r.prerequisitos.every(pr => aprobados.has(pr));
-  }
-
-  function actualizarProgreso() {
-    const porcentaje = Math.round((aprobados.size / total) * 100);
-    barra.style.width = `${porcentaje}%`;
-    texto.textContent = `${porcentaje}% Avance`;
-  }
-
-  function render() {
-    container.innerHTML = "";
-    const porSemestre = {};
-
-    ramos.forEach(r => {
-      if (!porSemestre[r.semestre]) porSemestre[r.semestre] = [];
-      porSemestre[r.semestre].push(r);
+    // Load program information
+    licenciateTitle.textContent = programInfo.licenciate;
+    professionalTitle.textContent = programInfo.professionalTitle;
+    programInfo.notes.forEach(note => {
+        const li = document.createElement('li');
+        li.textContent = note;
+        programNotes.appendChild(li);
     });
 
-    for (const semestre in porSemestre) {
-      const section = document.createElement("section");
-      section.className = "semestre";
-      const h2 = document.createElement("h2");
-      h2.textContent = `Semestre ${semestre}`;
-      section.appendChild(h2);
+    // Render courses
+    courseData.forEach(cycleData => {
+        const cycleSection = document.createElement('section');
+        cycleSection.classList.add('cycle-section');
 
-      porSemestre[semestre].forEach(ramo => {
-        const div = document.createElement("div");
-        div.className = "ramo";
-        div.title = ramo.nombre;
-        if (aprobados.has(ramo.id)) {
-          div.classList.add("aprobado");
-        } else if (puedeTomar(ramo)) {
-          div.classList.add("disponible");
-        } else {
-          div.classList.add("bloqueado");
-        }
+        const cycleTitle = document.createElement('h2');
+        cycleTitle.textContent = cycleData.cycle;
+        cycleSection.appendChild(cycleTitle);
 
-        div.textContent = ramo.nombre;
-        div.addEventListener("click", () => {
-          if (!puedeTomar(ramo) && !aprobados.has(ramo.id)) return;
-          if (aprobados.has(ramo.id)) {
-            aprobados.delete(ramo.id);
-          } else {
-            aprobados.add(ramo.id);
-          }
-          localStorage.setItem("aprobados", JSON.stringify([...aprobados]));
-          render();
-          actualizarProgreso();
+        cycleData.semesters.forEach(semesterData => {
+            const semesterDiv = document.createElement('div');
+            semesterDiv.classList.add('semester');
+
+            const semesterHeader = document.createElement('h3');
+            semesterHeader.classList.add('semester-header');
+            semesterHeader.innerHTML = `${semesterData.semester} <span class="toggle-icon">+</span>`;
+            semesterDiv.appendChild(semesterHeader);
+
+            const courseList = document.createElement('ul');
+            courseList.classList.add('course-list');
+            courseList.style.display = 'none'; // Initially hidden
+
+            semesterData.courses.forEach(course => {
+                const li = document.createElement('li');
+                li.innerHTML = `
+                    <input type="checkbox" id="${course.name.replace(/\s/g, '-')}-${semesterData.semester.replace(/\s/g, '-')}" class="course-checkbox">
+                    <label for="${course.name.replace(/\s/g, '-')}-${semesterData.semester.replace(/\s/g, '-')}" class="course-name" title="Click to mark as completed">${course.name}</label>
+                    <span class="course-area" title="Área de Formación">${course.area}</span>
+                `;
+                courseList.appendChild(li);
+            });
+
+            semesterDiv.appendChild(courseList);
+            cycleSection.appendChild(semesterDiv);
         });
+        courseGrid.appendChild(cycleSection);
+    });
 
-        section.appendChild(div);
-      });
+    // Add event listeners for expand/collapse
+    document.querySelectorAll('.semester-header').forEach(header => {
+        header.addEventListener('click', (event) => {
+            const courseList = header.nextElementSibling;
+            const toggleIcon = header.querySelector('.toggle-icon');
+            if (courseList.style.display === 'none') {
+                courseList.style.display = 'block';
+                toggleIcon.textContent = '-';
+            } else {
+                courseList.style.display = 'none';
+                toggleIcon.textContent = '+';
+            }
+        });
+    });
 
-      container.appendChild(section);
+    // Add event listeners for course completion (strikethrough)
+    document.querySelectorAll('.course-checkbox').forEach(checkbox => {
+        checkbox.addEventListener('change', (event) => {
+            const courseNameLabel = event.target.nextElementSibling;
+            if (event.target.checked) {
+                courseNameLabel.classList.add('completed');
+            } else {
+                courseNameLabel.classList.remove('completed');
+            }
+        });
+    });
+
+    // Theme toggle functionality
+    themeToggle.addEventListener('change', () => {
+        document.body.classList.toggle('dark-mode');
+        // Save user preference (optional, but good for persistence)
+        if (document.body.classList.contains('dark-mode')) {
+            localStorage.setItem('theme', 'dark');
+        } else {
+            localStorage.setItem('theme', 'light');
+        }
+    });
+
+    // Apply saved theme on load
+    if (localStorage.getItem('theme') === 'dark') {
+        document.body.classList.add('dark-mode');
+        themeToggle.checked = true;
     }
-
-    actualizarProgreso();
-  }
-
-  render();
 });
