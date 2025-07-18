@@ -1,186 +1,279 @@
+// script.js
+
 document.addEventListener('DOMContentLoaded', () => {
-    const courseListDiv = document.getElementById('course-list');
-    const progressBarFill = document.getElementById('progress-fill');
-    const progressPercentage = document.getElementById('progress-percentage');
-    const nextCoursesList = document.getElementById('next-courses-list');
+    const LOCAL_STORAGE_KEY = 'mallaProgress';
+    const THEME_STORAGE_KEY = 'mallaTheme'; // Nueva clave para el tema
 
-    let completedCourses = JSON.parse(localStorage.getItem('completedCourses')) || [];
-    let selectedNextCourses = JSON.parse(localStorage.getItem('selectedNextCourses')) || [];
+    let allCourses;
 
-    const groupCoursesBySemester = (courses) => {
-        return courses.reduce((acc, course) => {
-            if (!acc[course.semester]) {
-                acc[course.semester] = [];
-            }
-            acc[course.semester].push(course);
-            return acc;
-        }, {});
-    };
+    const progressBar = document.getElementById('progressBar');
+    const progressText = document.getElementById('progressText');
+    const semestersContainer = document.getElementById('semestersContainer');
+    const recommendedCoursesDiv = document.getElementById('recommendedCourses');
+    const refreshRecommendationsBtn = document.getElementById('refreshRecommendations');
+    const averageGradeText = document.getElementById('averageGradeText');
+    const themeToggleButton = document.getElementById('themeToggleButton'); // Nuevo botón
 
-    const renderCourses = () => {
-        courseListDiv.innerHTML = '';
-        const groupedCourses = groupCoursesBySemester(courses);
-        let currentSemester = 0;
+    // Elementos del Modal
+    const courseModal = document.getElementById('courseModal');
+    const closeModalButtons = document.querySelectorAll('.modal-button.close, .close-button');
+    const modalCourseName = document.getElementById('modalCourseName');
+    const modalCourseSemester = document.getElementById('modalCourseSemester');
+    const modalCourseArea = document.getElementById('modalCourseArea');
+    const modalCourseDescription = document.getElementById('modalCourseDescription');
+    const modalCoursePrerequisites = document.getElementById('modalCoursePrerequisites');
+    const markAsApprovedBtn = document.getElementById('markAsApprovedBtn');
 
-        // Find the lowest semester that has not been fully completed
-        for (const semesterNum in groupedCourses) {
-            const semesterCourses = groupedCourses[semesterNum];
-            const allCompletedInSemester = semesterCourses.every(course =>
-                completedCourses.some(c => c.name === course.name && c.semester === course.semester)
-            );
-            if (!allCompletedInSemester) {
-                currentSemester = parseInt(semesterNum);
-                break;
-            }
-        }
-        if (currentSemester === 0) { // All courses completed
-            currentSemester = Math.max(...Object.keys(groupedCourses).map(Number));
-        }
+    const semesterCoursesContainers = {};
+    for (let i = 1; i <= 14; i++) { // Mantener 14 semestres para Medicina
+        const semesterDiv = document.createElement('div');
+        semesterDiv.classList.add('semester');
+        semesterDiv.innerHTML = `<h3>Semestre ${i}</h3>`;
+        semestersContainer.appendChild(semesterDiv);
 
+        const coursesDiv = document.createElement('div');
+        coursesDiv.classList.add('courses-container');
+        semesterDiv.appendChild(coursesDiv);
+        semesterCoursesContainers[i] = coursesDiv;
+    }
 
-        for (const semesterNum in groupedCourses) {
-            const semesterCourses = groupedCourses[semesterNum];
-            const isCurrentSemester = parseInt(semesterNum) === currentSemester;
+    // --- Funciones de Guardado y Carga ---
+    function saveProgress() {
+        localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(allCourses));
+    }
 
-            const semesterContainer = document.createElement('div');
-            semesterContainer.classList.add('semester-container');
-
-            const semesterHeader = document.createElement('h2');
-            semesterHeader.textContent = `Semestre ${semesterNum}`;
-            semesterHeader.classList.add('semester-header');
-            semesterHeader.addEventListener('click', () => {
-                semesterContainer.classList.toggle('collapsed');
-            });
-            semesterContainer.appendChild(semesterHeader);
-
-            const courseGrid = document.createElement('div');
-            courseGrid.classList.add('course-grid');
-            semesterContainer.appendChild(courseGrid);
-
-            semesterCourses.forEach(course => {
-                const courseItem = document.createElement('div');
-                courseItem.classList.add('course-item');
-                if (completedCourses.some(c => c.name === course.name && c.semester === course.semester)) {
-                    courseItem.classList.add('completed');
-                }
-
-                const checkbox = document.createElement('input');
-                checkbox.type = 'checkbox';
-                checkbox.checked = completedCourses.some(c => c.name === course.name && c.semester === course.semester);
-                checkbox.addEventListener('change', () => {
-                    toggleCourseCompletion(course);
-                });
-                courseItem.appendChild(checkbox);
-
-                const courseName = document.createElement('span');
-                courseName.textContent = course.name;
-                courseItem.appendChild(courseName);
-
-                courseGrid.appendChild(courseItem);
-            });
-
-            courseListDiv.appendChild(semesterContainer);
-
-            if (!isCurrentSemester) {
-                semesterContainer.classList.add('collapsed');
-            }
-        }
-        updateProgressBar();
-        renderNextCourses();
-    };
-
-    const toggleCourseCompletion = (course) => {
-        const index = completedCourses.findIndex(c => c.name === course.name && c.semester === course.semester);
-        if (index > -1) {
-            completedCourses.splice(index, 1);
+    function loadProgress() {
+        const savedProgress = localStorage.getItem(LOCAL_STORAGE_KEY);
+        if (savedProgress) {
+            allCourses = JSON.parse(savedProgress);
         } else {
-            completedCourses.push(course);
+            allCourses = coursesData.map(course => ({ ...course }));
         }
-        localStorage.setItem('completedCourses', JSON.stringify(completedCourses));
-        renderCourses();
-    };
+    }
 
-    const updateProgressBar = () => {
-        const totalCourses = courses.length;
-        const completedCount = completedCourses.length;
-        const percentage = totalCourses > 0 ? (completedCount / totalCourses) * 100 : 0;
-        progressBarFill.style.width = `${percentage}%`;
-        progressPercentage.textContent = `${percentage.toFixed(2)}%`;
-    };
-
-    const renderNextCourses = () => {
-        nextCoursesList.innerHTML = '';
-        const completedCourseNames = new Set(completedCourses.map(c => c.name));
-        const allSemesters = Array.from(new Set(courses.map(c => c.semester))).sort((a, b) => a - b);
-
-        let nextAvailableSemester = 1;
-        for (const semester of allSemesters) {
-            const semesterCourses = courses.filter(c => c.semester === semester);
-            const allSemesterCoursesCompleted = semesterCourses.every(course =>
-                completedCourseNames.has(course.name)
-            );
-            if (!allSemesterCoursesCompleted) {
-                nextAvailableSemester = semester;
-                break;
-            }
-            nextAvailableSemester = semester + 1; // If current semester is complete, look at the next
+    // --- Funciones de Tema (Modo Noche/Día) ---
+    function loadTheme() {
+        const savedTheme = localStorage.getItem(THEME_STORAGE_KEY);
+        if (savedTheme === 'dark') {
+            document.body.classList.add('dark-mode');
+        } else {
+            document.body.classList.remove('dark-mode');
         }
-        // Ensure nextAvailableSemester does not exceed the maximum semester in the data
-        const maxSemester = Math.max(...allSemesters);
-        if (nextAvailableSemester > maxSemester) {
-            nextAvailableSemester = maxSemester; // Or handle as all courses completed
+    }
+
+    function toggleTheme() {
+        document.body.classList.toggle('dark-mode');
+        if (document.body.classList.contains('dark-mode')) {
+            localStorage.setItem(THEME_STORAGE_KEY, 'dark');
+            themeToggleButton.textContent = '☀️'; // Cambiar a sol en modo oscuro
+            themeToggleButton.title = 'Cambiar a modo claro';
+        } else {
+            localStorage.setItem(THEME_STORAGE_KEY, 'light');
+            themeToggleButton.textContent = '🌙'; // Cambiar a luna en modo claro
+            themeToggleButton.title = 'Cambiar a modo oscuro';
         }
+    }
+    // Asignar evento al botón de cambio de tema
+    themeToggleButton.addEventListener('click', toggleTheme);
 
-
-        const potentialNextCourses = courses.filter(course =>
-            course.semester === nextAvailableSemester && !completedCourseNames.has(course.name)
-        ).slice(0, 6); // Limit to a maximum of 6
-
-        if (potentialNextCourses.length === 0 && completedCourses.length === courses.length) {
-            nextCoursesList.innerHTML = '<p>¡Todos los ramos completados! ¡Felicidades!</p>';
-            return;
-        } else if (potentialNextCourses.length === 0) {
-             nextCoursesList.innerHTML = '<p>No hay ramos disponibles para el próximo semestre. Revisa si has completado todos los anteriores.</p>';
-             return;
+    // --- Lógica de la Malla Curricular ---
+    function isCourseBlocked(course) {
+        if (!course.prerequisites || course.prerequisites.length === 0) {
+            return false;
         }
-
-
-        potentialNextCourses.forEach(course => {
-            const courseItem = document.createElement('div');
-            courseItem.classList.add('next-course-item');
-
-            const checkbox = document.createElement('input');
-            checkbox.type = 'checkbox';
-            checkbox.checked = selectedNextCourses.some(c => c.name === course.name && c.semester === course.semester);
-            checkbox.addEventListener('change', () => {
-                toggleNextCourseSelection(course);
-            });
-            courseItem.appendChild(checkbox);
-
-            const courseName = document.createElement('span');
-            courseName.textContent = course.name;
-            courseItem.appendChild(courseName);
-
-            nextCoursesList.appendChild(courseItem);
+        return course.prerequisites.some(prereqId => {
+            const prereqCourse = allCourses.find(c => c.id === prereqId);
+            return prereqCourse && !prereqCourse.approved;
         });
-    };
+    }
 
-    const toggleNextCourseSelection = (course) => {
-        const index = selectedNextCourses.findIndex(c => c.name === course.name && c.semester === course.semester);
-        if (index > -1) {
-            selectedNextCourses.splice(index, 1);
-        } else {
-            if (selectedNextCourses.length < 6) { // Limit selection to 6
-                selectedNextCourses.push(course);
-            } else {
-                alert('Solo puedes seleccionar un máximo de 6 ramos para el próximo semestre.');
-                return; // Prevent checking the box if limit is reached
-            }
+    function renderMalla() {
+        for (const sem in semesterCoursesContainers) {
+            semesterCoursesContainers[sem].innerHTML = '';
         }
-        localStorage.setItem('selectedNextCourses', JSON.stringify(selectedNextCourses));
-        renderNextCourses(); // Re-render to reflect selection
-    };
 
+        allCourses.forEach(course => {
+            const courseBox = document.createElement('div');
+            courseBox.classList.add('course-box');
+            courseBox.setAttribute('data-id', course.id);
+            courseBox.textContent = course.name;
 
-    renderCourses();
+            if (course.approved && course.grade !== null) {
+                courseBox.textContent = `${course.name} (${course.grade.toFixed(1)})`;
+            } else {
+                courseBox.textContent = course.name;
+            }
+
+            courseBox.classList.add(course.area);
+
+            if (course.approved) {
+                courseBox.classList.add('approved');
+            } else if (isCourseBlocked(course)) {
+                courseBox.classList.add('blocked');
+                courseBox.textContent += ' 🔒';
+            }
+
+            courseBox.addEventListener('click', () => {
+                const clickedCourse = allCourses.find(c => c.id === course.id);
+
+                if (clickedCourse.approved) {
+                    clickedCourse.approved = false;
+                    clickedCourse.grade = null;
+                    renderMalla();
+                    updateProgressBar();
+                    updateAverageGrade();
+                    updateRecommendedCourses();
+                    saveProgress();
+                } else if (isCourseBlocked(clickedCourse)) {
+                    // No hacer nada si está bloqueado
+                } else {
+                    openCourseModal(clickedCourse);
+                }
+            });
+
+            if (semesterCoursesContainers[course.semester]) {
+                semesterCoursesContainers[course.semester].appendChild(courseBox);
+            }
+        });
+    }
+
+    // --- Funciones del Modal ---
+    let currentCourseInModal = null;
+
+    function openCourseModal(course) {
+        currentCourseInModal = course;
+        modalCourseName.textContent = course.name;
+        modalCourseSemester.textContent = course.semester;
+        modalCourseArea.textContent = course.area;
+        modalCourseDescription.textContent = course.description || "No hay descripción disponible.";
+
+        if (course.prerequisites && course.prerequisites.length > 0) {
+            const prereqNames = course.prerequisites.map(prereqId => {
+                const prereqCourse = allCourses.find(c => c.id === prereqId);
+                return prereqCourse ? prereqCourse.name : `ID ${prereqId} (Desconocido)`;
+            }).join(', ');
+            modalCoursePrerequisites.textContent = prereqNames;
+        } else {
+            modalCoursePrerequisites.textContent = "Ninguno";
+        }
+
+        markAsApprovedBtn.onclick = () => {
+            let gradeInput = prompt(`Ingresa la nota para "${currentCourseInModal.name}" (1.0 a 7.0):`);
+            let grade = parseFloat(gradeInput);
+
+            if (!isNaN(grade) && grade >= 1.0 && grade <= 7.0) {
+                currentCourseInModal.approved = true;
+                currentCourseInModal.grade = grade;
+                closeCourseModal();
+                renderMalla();
+                updateProgressBar();
+                updateAverageGrade();
+                updateRecommendedCourses();
+                saveProgress();
+            } else if (gradeInput !== null) {
+                alert("Nota inválida. Por favor, ingresa un número entre 1.0 y 7.0.");
+            }
+        };
+
+        courseModal.style.display = 'flex';
+    }
+
+    function closeCourseModal() {
+        courseModal.style.display = 'none';
+        currentCourseInModal = null;
+    }
+
+    closeModalButtons.forEach(button => {
+        button.addEventListener('click', closeCourseModal);
+    });
+
+    window.addEventListener('click', (event) => {
+        if (event.target === courseModal) {
+            closeCourseModal();
+        }
+    });
+
+    // --- Funciones de Actualización de Datos y UI ---
+    function updateProgressBar() {
+        const totalCourses = allCourses.length;
+        const approvedCourses = allCourses.filter(course => course.approved).length;
+        const percentage = (approvedCourses / totalCourses) * 100;
+
+        progressBar.style.width = `${percentage}%`;
+        progressText.textContent = `${percentage.toFixed(0)}%`;
+    }
+
+    function updateAverageGrade() {
+        const gradedApprovedCourses = allCourses.filter(course => course.approved && course.grade !== null);
+
+        let totalGrade = 0;
+        gradedApprovedCourses.forEach(course => {
+            totalGrade += course.grade;
+        });
+
+        if (gradedApprovedCourses.length > 0) {
+            const average = totalGrade / gradedApprovedCourses.length;
+            averageGradeText.textContent = `Promedio de ramos aprobados: ${average.toFixed(2)}`;
+        } else {
+            averageGradeText.textContent = 'Promedio de ramos aprobados: N/A';
+        }
+    }
+
+    function updateRecommendedCourses() {
+        recommendedCoursesDiv.innerHTML = '';
+        const availableCourses = allCourses.filter(course => !course.approved && !isCourseBlocked(course));
+
+        const sortedRecommendations = availableCourses.sort((a, b) => {
+            if (a.semester !== b.semester) {
+                return a.semester - b.semester;
+            }
+
+            const getImpact = (courseId) => {
+                let impact = 0;
+                allCourses.forEach(c => {
+                    if (c.prerequisites && c.prerequisites.includes(courseId)) {
+                        impact++;
+                    }
+                });
+                return impact;
+            };
+
+            const impactA = getImpact(a.id);
+            const impactB = getImpact(b.id);
+
+            return impactB - impactA;
+        });
+
+        const recommendationsToShow = sortedRecommendations.slice(0, 6);
+
+        if (recommendationsToShow.length === 0) {
+            recommendedCoursesDiv.textContent = 'No hay ramos disponibles para recomendar en este momento.';
+        } else {
+            recommendationsToShow.forEach(course => {
+                const courseBox = document.createElement('div');
+                courseBox.classList.add('course-box');
+                courseBox.textContent = course.name;
+                courseBox.classList.add(course.area);
+                recommendedCoursesDiv.appendChild(courseBox);
+            });
+        }
+    }
+
+    refreshRecommendationsBtn.addEventListener('click', updateRecommendedCourses);
+
+    // --- Llamadas iniciales ---
+    loadTheme(); // Cargar el tema al inicio
+    // Asegurarse de que el icono del botón de tema se actualice correctamente al cargar la página
+    if (document.body.classList.contains('dark-mode')) {
+        themeToggleButton.textContent = '☀️';
+        themeToggleButton.title = 'Cambiar a modo claro';
+    } else {
+        themeToggleButton.textContent = '🌙';
+        themeToggleButton.title = 'Cambiar a modo oscuro';
+    }
+    loadProgress();
+    renderMalla();
+    updateProgressBar();
+    updateAverageGrade();
+    updateRecommendedCourses();
 });
