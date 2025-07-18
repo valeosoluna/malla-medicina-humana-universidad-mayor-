@@ -1,66 +1,162 @@
-const ramos = [
-  { "id": "fundamentos_de_la_medicina", "nombre": "Fundamentos de la medicina", "semestre": 1, "prerequisitos": [] },
-  { "id": "biología_molecular_y_genética", "nombre": "Biología molecular y genética", "semestre": 1, "prerequisitos": [] },
-  { "id": "anatomía_humana_i", "nombre": "Anatomía humana I", "semestre": 1, "prerequisitos": [] },
-  { "id": "fundamentos_de_bioquímica", "nombre": "Fundamentos de bioquímica", "semestre": 1, "prerequisitos": [] },
-  { "id": "psicología_para_la_atención_en_salud", "nombre": "Psicología para la atención en salud", "semestre": 1, "prerequisitos": [] },
-  { "id": "salud_y_sociedad", "nombre": "Salud y sociedad", "semestre": 1, "prerequisitos": [] },
-  { "id": "histoembriología_i", "nombre": "Histoembriología I", "semestre": 2, "prerequisitos": [] },
-  { "id": "anatomía_humana_ii", "nombre": "Anatomía humana II", "semestre": 2, "prerequisitos": ["anatomía_humana_i"] },
-  { "id": "fisiología_médica_i", "nombre": "Fisiología médica I", "semestre": 2, "prerequisitos": [] },
-  { "id": "psicología_en_el_curso_de_la_vida", "nombre": "Psicología en el curso de la vida", "semestre": 2, "prerequisitos": [] },
-  { "id": "neurociencias", "nombre": "Neurociencias", "semestre": 2, "prerequisitos": [] },
-  { "id": "electivo_1", "nombre": "Electivo 1", "semestre": 2, "prerequisitos": [] },
-  { "id": "semiología_i", "nombre": "Semiología I", "semestre": 3, "prerequisitos": [] },
-  { "id": "histoembriología_ii", "nombre": "Histoembriología II", "semestre": 3, "prerequisitos": [] },
-  { "id": "fisiología_médica_ii", "nombre": "Fisiología médica II", "semestre": 3, "prerequisitos": [] },
-  { "id": "inmunología_e_inmunización", "nombre": "Inmunología e inmunización", "semestre": 3, "prerequisitos": [] },
-  { "id": "agentes_infecciosos_i", "nombre": "Agentes infecciosos I", "semestre": 3, "prerequisitos": [] },
-  { "id": "electivo_2", "nombre": "Electivo 2", "semestre": 3, "prerequisitos": [] },
-  { "id": "semiología_ii", "nombre": "Semiología II", "semestre": 4, "prerequisitos": ["semiología_i"] },
-  { "id": "agentes_infecciosos_ii", "nombre": "Agentes infecciosos II", "semestre": 4, "prerequisitos": ["agentes_infecciosos_i"] },
-  { "id": "farmacología_i", "nombre": "Farmacología I", "semestre": 4, "prerequisitos": [] },
-  { "id": "salud_pública_y_epidemiología", "nombre": "Salud pública y epidemiología", "semestre": 4, "prerequisitos": [] },
-  { "id": "integrado_de_patología_morfofuncional_i", "nombre": "Integrado de patología morfofuncional I", "semestre": 4, "prerequisitos": [] },
-  { "id": "electivo_3", "nombre": "Electivo 3", "semestre": 4, "prerequisitos": [] },
-  { "id": "atención_primaria_y_alta_prevalencia", "nombre": "Atención primaria y alta prevalencia", "semestre": 5, "prerequisitos": [] },
-  { "id": "farmacología_ii", "nombre": "Farmacología II", "semestre": 5, "prerequisitos": ["farmacología_i"] },
-  { "id": "métodos_de_diagnóstico_clínico", "nombre": "Métodos de diagnóstico clínico", "semestre": 5, "prerequisitos": [] },
-  { "id": "medicina_interna_i", "nombre": "Medicina interna I", "semestre": 5, "prerequisitos": [] },
-  { "id": "integrado_de_patología_morfofuncional_ii", "nombre": "Integrado de patología morfofuncional II", "semestre": 5, "prerequisitos": ["integrado_de_patología_morfofuncional_i"] },
-  { "id": "electivo_4", "nombre": "Electivo 4", "semestre": 5, "prerequisitos": [] },
-  { "id": "medicina_interna_ii", "nombre": "Medicina interna II", "semestre": 6, "prerequisitos": ["medicina_interna_i"] },
-  { "id": "salud_basada_en_la_evidencia", "nombre": "Salud basada en la evidencia", "semestre": 6, "prerequisitos": [] },
-  { "id": "especialidades_médicas_i", "nombre": "Especialidades médicas I", "semestre": 6, "prerequisitos": [] },
-  { "id": "métodos_de_investigación_en_salud_y_bioestadística_aplicada", "nombre": "Métodos de investigación en salud y bioestadística aplicada", "semestre": 6, "prerequisitos": [] },
-  { "id": "electivo_5", "nombre": "Electivo 5", "semestre": 6, "prerequisitos": [] },
-  { "id": "bioética", "nombre": "Bioética", "semestre": 6, "prerequisitos": [] },
-  { "id": "neurología", "nombre": "Neurología", "semestre": 7, "prerequisitos": [] },
-  { "id": "especialidades_médicas_ii", "nombre": "Especialidades médicas II", "semestre": 7, "prerequisitos": [] },
-  { "id": "cirugía", "nombre": "Cirugía", "semestre": 7, "prerequisitos": [] },
-  { "id": "medicina_aplicada_i", "nombre": "Medicina aplicada I", "semestre": 7, "prerequisitos": [] },
-  { "id": "traumatología", "nombre": "Traumatología", "semestre": 7, "prerequisitos": [] },
-  { "id": "nutrición_clínica", "nombre": "Nutrición clínica", "semestre": 7, "prerequisitos": [] },
-  { "id": "pediatría_traumatología_y_cirugía_infantil", "nombre": "Pediatría, traumatología y cirugía infantil", "semestre": 8, "prerequisitos": [] },
-  { "id": "medicina_aplicada_ii", "nombre": "Medicina aplicada II", "semestre": 8, "prerequisitos": [] },
-  { "id": "ginecología_y_obstetricia", "nombre": "Ginecología y obstetricia", "semestre": 8, "prerequisitos": [] },
-  { "id": "psiquiatría_infantojuvenil_y_del_adulto_i", "nombre": "Psiquiatría infanto-juvenil y del adulto I", "semestre": 8, "prerequisitos": [] },
-  { "id": "medicina_legal", "nombre": "Medicina legal", "semestre": 8, "prerequisitos": [] },
-  { "id": "gestión_en_sistemas_de_salud", "nombre": "Gestión en sistemas de salud", "semestre": 8, "prerequisitos": [] },
-  { "id": "psiquiatría_infantojuvenil_y_del_adulto_ii", "nombre": "Psiquiatría infanto-juvenil y del adulto II", "semestre": 9, "prerequisitos": ["psiquiatría_infantojuvenil_y_del_adulto_i"] },
-  { "id": "oncología_y_cuidados_paliativos", "nombre": "Oncología y cuidados paliativos", "semestre": 9, "prerequisitos": [] },
-  { "id": "inteligencia_artificial_aplicada_a_la_salud", "nombre": "Inteligencia artificial aplicada a la salud", "semestre": 9, "prerequisitos": [] },
-  { "id": "especialidades_médicas_iii", "nombre": "Especialidades médicas III", "semestre": 9, "prerequisitos": [] },
-  { "id": "internado_de_medicina_interna", "nombre": "Internado de medicina interna", "semestre": 10, "prerequisitos": [] },
-  { "id": "internado_de_atención_primaria", "nombre": "Internado de atención primaria", "semestre": 10, "prerequisitos": [] },
-  { "id": "internado_de_pediatría", "nombre": "Internado de pediatría", "semestre": 11, "prerequisitos": [] },
-  { "id": "internado_de_cirugía", "nombre": "Internado de cirugía", "semestre": 11, "prerequisitos": [] },
-  { "id": "internado_de_psiquiatría", "nombre": "Internado de psiquiatría", "semestre": 12, "prerequisitos": [] },
-  { "id": "internado_de_urgencia", "nombre": "Internado de urgencia", "semestre": 12, "prerequisitos": [] },
-  { "id": "internado_de_salud_en_persona_mayor", "nombre": "Internado de salud en persona mayor", "semestre": 13, "prerequisitos": [] },
-  { "id": "internado_de_obstetricia_y_ginecología", "nombre": "Internado de obstetricia y ginecología", "semestre": 13, "prerequisitos": [] },
-  { "id": "internado_electivo_i", "nombre": "Internado electivo I", "semestre": 14, "prerequisitos": [] },
-  { "id": "internado_electivo_ii", "nombre": "Internado electivo II", "semestre": 14, "prerequisitos": [] },
-  { "id": "internado_electivo_iii", "nombre": "Internado electivo III", "semestre": 14, "prerequisitos": [] },
-  { "id": "integración_para_la_práctica_profesional", "nombre": "Integración para la práctica profesional", "semestre": 14, "prerequisitos": [] }
+const courseData = [
+    {
+        cycle: "CICLO 1",
+        semesters: [
+            {
+                semester: "Semestre 1",
+                courses: [
+                    { name: "Biologia molecular y genética", area: "AREA FORMACION BASICA" },
+                    { name: "Fundamentos de la medicina", area: "AREA FORMACION DISCIPLINAR" },
+                    { name: "Semiologia I", area: "AREA FORMACION DISCIPLINAR" },
+                    { name: "Fundamentos de la química", area: "AREA FORMACION BASICA" }
+                ]
+            },
+            {
+                semester: "Semestre 2",
+                courses: [
+                    { name: "Fisiologia médica I", area: "AREA FORMACION DISCIPLINAR" },
+                    { name: "Histoembriologia I", area: "AREA FORMACION BASICA" },
+                    { name: "Anatomia humana I", area: "AREA FORMACION BASICA" },
+                    { name: "Fundamentos de bioquímica", area: "AREA FORMACION BASICA" }
+                ]
+            },
+            {
+                semester: "Semestre 3",
+                courses: [
+                    { name: "Semiologia II", area: "AREA FORMACION DISCIPLINAR" },
+                    { name: "Atención Primaria y alta prevalencia", area: "AREA FORMACION DISCIPLINAR" },
+                    { name: "Histoembriologia II", area: "AREA FORMACION BASICA" },
+                    { name: "Anatomía humana II", area: "AREA FORMACION BASICA" },
+                    { name: "Psicología para la atención en salud", area: "AREA FORMACION BASICA" }
+                ]
+            },
+            {
+                semester: "Semestre 4",
+                courses: [
+                    { name: "Fisiologia médica II", area: "AREA FORMACION DISCIPLINAR" },
+                    { name: "Integrado de patología morfofuncional I", area: "AREA FORMACION DISCIPLINAR" },
+                    { name: "Agentes infecciosos I", area: "AREA FORMACION DISCIPLINAR" },
+                    { name: "Métodos de Investigación en salud y bioestadistica aplicada", area: "AREA FORMACION BASICA" },
+                    { name: "Psicología en el curso de la vida", area: "AREA FORMACION BASICA" }
+                ]
+            },
+            {
+                semester: "Semestre 5",
+                courses: [
+                    { name: "Medicina interna I", area: "AREA FORMACION DISCIPLINAR" },
+                    { name: "Integrado de patologia morfofuncional II", area: "AREA FORMACION DISCIPLINAR" },
+                    { name: "Agentes infecciosos II", area: "AREA FORMACION DISCIPLINAR" },
+                    { name: "Neurociencias", area: "AREA FORMACION BASICA" },
+                    { name: "Salud y sociedad", area: "AREA FORMACION BASICA" }
+                ]
+            },
+            {
+                semester: "Semestre 6",
+                courses: [
+                    { name: "Medicina interna II", area: "AREA FORMACION DISCIPLINAR" },
+                    { name: "Métodos de diagnóstico clinica", area: "AREA FORMACION DISCIPLINAR" },
+                    { name: "Inmunologia e Inmunización", area: "AREA FORMACION DISCIPLINAR" },
+                    { name: "Farmacología I", area: "AREA FORMACION DISCIPLINAR" },
+                    { name: "Farmacologia II", area: "AREA FORMACION DISCIPLINAR" }
+                ]
+            }
+        ]
+    },
+    {
+        cycle: "CICLO 2",
+        semesters: [
+            {
+                semester: "Semestre 7",
+                courses: [
+                    { name: "Cirugía", area: "AREA FORMACION DISCIPLINAR" },
+                    { name: "Medicina aplicada I", area: "AREA FORMACION DISCIPLINAR" },
+                    { name: "Neurología", area: "AREA FORMACION DISCIPLINAR" },
+                    { name: "Salud basada en la evidencia", area: "AREA FORMACION DISCIPLINAR" },
+                    { name: "Electivo 1", area: "AREA FORMACIÓN ELECTIVA" }
+                ]
+            },
+            {
+                semester: "Semestre 8",
+                courses: [
+                    { name: "Traumatologia", area: "AREA FORMACION DISCIPLINAR" },
+                    { name: "Medicina aplicada II", area: "AREA FORMACION DISCIPLINAR" },
+                    { name: "Salud pública y epidemiologia", area: "AREA FORMACION DISCIPLINAR" },
+                    { name: "Electivo 2", area: "AREA FORMACIÓN ELECTIVA" },
+                    { name: "Bioética", area: "AREA FORMACION DISCIPLINAR" }
+                ]
+            },
+            {
+                semester: "Semestre 9",
+                courses: [
+                    { name: "Pediatria, traumatología y cirugia infantil", area: "AREA FORMACION DISCIPLINAR" },
+                    { name: "Ginecología y obstetricia", area: "AREA FORMACION DISCIPLINAR" },
+                    { name: "Especialides médicas I", area: "AREA FORMACION DISCIPLINAR" },
+                    { name: "Electivo 3", area: "AREA FORMACIÓN ELECTIVA" },
+                    { name: "Nutrición clínica", area: "AREA FORMACION DISCIPLINAR" }
+                ]
+            },
+            {
+                semester: "Semestre 10",
+                courses: [
+                    { name: "Especialides médicas II", area: "AREA FORMACION DISCIPLINAR" },
+                    { name: "Electivo 4", area: "AREA FORMACIÓN ELECTIVA" },
+                    { name: "Gestión en sistemas de salud", area: "AREA FORMACION DISCIPLINAR" },
+                    { name: "Medicina legal", area: "AREA FORMACION DISCIPLINAR" },
+                    { name: "Psiquiatria Infanto-juvenil y del adulto I", area: "AREA FORMACION DISCIPLINAR" }
+                ]
+            },
+            {
+                semester: "Semestre 11",
+                courses: [
+                    { name: "Especialidades médicas III", area: "AREA FORMACION DISCIPLINAR" },
+                    { name: "Electivo 5", area: "AREA FORMACIÓN ELECTIVA" },
+                    { name: "Oncología y cuidados paliativos", area: "AREA FORMACION DISCIPLINAR" },
+                    { name: "Psiquiatria infanto-juvenil y del adulto II", area: "AREA FORMACION DISCIPLINAR" },
+                    { name: "Inteligencia artificial aplicada a la salud", area: "AREA FORMACION DISCIPLINAR" }
+                ]
+            }
+        ]
+    },
+    {
+        cycle: "CICLO 3", // Assuming internados are part of a third cycle
+        semesters: [
+            {
+                semester: "Semestre 12",
+                courses: [
+                    { name: "Internado de medicina interna", area: "AREA FORMACION DISCIPLINAR" },
+                    { name: "Internado de atención primaria", area: "AREA FORMACION DISCIPLINAR" },
+                    { name: "Internado de pediatria", area: "AREA FORMACION DISCIPLINAR" },
+                    { name: "Internado de cirugía", area: "AREA FORMACION DISCIPLINAR" },
+                    { name: "Internado de psiquiatría", area: "AREA FORMACION DISCIPLINAR" }
+                ]
+            },
+            {
+                semester: "Semestre 13",
+                courses: [
+                    { name: "Internado de urgencia", area: "AREA FORMACION DISCIPLINAR" },
+                    { name: "Internado de salud en persona mayor", area: "AREA FORMACION DISCIPLINAR" },
+                    { name: "Internado de obstetricia y ginecologia", area: "AREA FORMACION DISCIPLINAR" },
+                    { name: "Internado electivo I", area: "AREA FORMACIÓN ELECTIVA" },
+                    { name: "Internado electivo II", area: "AREA FORMACIÓN ELECTIVA" }
+                ]
+            },
+            {
+                semester: "Semestre 14",
+                courses: [
+                    { name: "Internado electivo III", area: "AREA FORMACIÓN ELECTIVA" },
+                    { name: "Integración para la práctica profesional", area: "AREA FORMACION DISCIPLINAR" }
+                ]
+            }
+        ]
+    }
 ];
+
+const programInfo = {
+    licenciate: "LICENCIADO(A) EN MEDICINA",
+    professionalTitle: "MÉDICO(A) CIRUJANO (A)",
+    notes: [
+        "Las asignaturas que consideran practicas clinicas son de caracter rotativo anual.",
+        "Para cursar los internados, se debe haber obtenido el grado académico de licenciado.",
+        "La malla curricular podria ser modificada en función del mejoramiento continuo y regulatorno de la carrera."
+    ]
+};
