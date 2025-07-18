@@ -1,41 +1,28 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Malla Curricular Medicina</title>
-    <link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Malla Medicina Interactiva</title>
+  <link rel="stylesheet" href="style.css" />
+  <script defer src="data.js"></script>
+  <script defer src="script.js"></script>
 </head>
 <body>
-    <div class="container">
-        <header>
-            <h1>Malla Curricular Medicina UMayor Temuco</h1>
-            <button id="theme-toggle" class="tooltip-button" data-tooltip="Cambiar tema (claro/oscuro)">🌙</button>
-        </header>
+  <header>
+    <h1>Malla Medicina Interactiva</h1>
+    <button id="modo-btn" title="Cambiar modo claro/oscuro">🌙</button>
+  </header>
 
-        <div class="progress-section">
-            <h2>Avance Curricular</h2>
-            <div class="progress-bar-container">
-                <div class="progress-bar" id="progress-bar">
-                    <span class="progress-text" id="progress-text">0%</span>
-                </div>
-            </div>
-            <p class="degree-info" id="licenciado-degree"></p>
-            <p class="degree-info" id="medico-cirujano-degree"></p>
-        </div>
+  <div class="progreso">
+    <div id="barra-progreso"></div>
+    <span id="texto-progreso">0% Avance</span>
+  </div>
 
-        <div class="next-courses-section">
-            <h2>Próximos Ramos Recomendados (Máx. 6)</h2>
-            <div id="next-courses-list" class="next-courses-list">
-                <p>Completa algunos ramos para ver recomendaciones.</p>
-            </div>
-        </div>
+  <main id="malla-container"></main>
 
-        <main id="curriculum-container">
-            </main>
-    </div>
-
-    <script src="data.js"></script>
-    <script src="script.js"></script>
+  <footer>
+    <p>🔎 Pasa el mouse sobre los botones para ver sus funciones.</p>
+  </footer>
 </body>
 </html>
