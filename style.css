@@ -1,116 +1,416 @@
 :root {
-  --bg: #fefefe;
-  --text: #222;
-  --card: #ffe6f0;
-  --disponible: #e0f7fa;
-  --aprobado: #dcd6f7;
-  --bloqueado: #f8f8f8;
-}
+    /* Pastel Light Mode Colors */
+    --light-bg-color: #f7e1e6; /* Light Pink */
+    --light-text-color: #333;
+    --light-header-bg: #e0bbe4; /* Light Purple */
+    --light-semester-bg: #957dad; /* Medium Purple */
+    --light-course-bg: #d291bc; /* Rosy Pink */
+    --light-hover-bg: #ffcbf2; /* Lighter Pink */
+    --light-border-color: #c7a7d3; /* Soft Purple */
+    --light-toggle-bg: #ffeded; /* Very light pink for switch */
+    --light-toggle-slider: #c7a7d3; /* Soft purple for slider */
 
-body.oscuro {
-  --bg: #1a1a1a;
-  --text: #f0f0f0;
-  --card: #3a2c3b;
-  --disponible: #295a63;
-  --aprobado: #483f7b;
-  --bloqueado: #333;
+    /* Pastel Dark Mode Colors */
+    --dark-bg-color: #3a2e3f; /* Dark Purple-Grey */
+    --dark-text-color: #f0e6ef; /* Off-white for text */
+    --dark-header-bg: #5c4b5c; /* Muted Purple */
+    --dark-semester-bg: #7f6a7d; /* Deeper Muted Purple */
+    --dark-course-bg: #9b7a97; /* Dusky Rose */
+    --dark-hover-bg: #b08aae; /* Lighter Dusky Rose */
+    --dark-border-color: #4a3c4a; /* Darker Muted Purple */
+    --dark-toggle-bg: #2a202a; /* Very dark purple-grey for switch */
+    --dark-toggle-slider: #7f6a7d; /* Deeper muted purple for slider */
+
+    /* General */
+    --transition-speed: 0.3s ease-in-out;
+    --border-radius: 8px;
 }
 
 body {
-  background: var(--bg);
-  color: var(--text);
-  font-family: 'Segoe UI', sans-serif;
-  margin: 0;
-  padding: 0;
-  transition: background 0.4s ease, color 0.4s ease;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    margin: 0;
+    padding: 20px;
+    background-color: var(--light-bg-color);
+    color: var(--light-text-color);
+    transition: background-color var(--transition-speed), color var(--transition-speed);
+}
+
+/* Dark Mode Styles */
+body.dark-mode {
+    background-color: var(--dark-bg-color);
+    color: var(--dark-text-color);
 }
 
 header {
-  background: var(--card);
-  padding: 1rem;
-  text-align: center;
-  position: sticky;
-  top: 0;
-  z-index: 100;
+    background-color: var(--light-header-bg);
+    padding: 20px 30px;
+    border-radius: var(--border-radius);
+    margin-bottom: 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    transition: background-color var(--transition-speed);
 }
 
-button {
-  cursor: pointer;
-  font-size: 1.2rem;
-  padding: 0.4rem 0.8rem;
-  border-radius: 12px;
-  border: none;
-  background: var(--disponible);
-  transition: background 0.3s;
+body.dark-mode header {
+    background-color: var(--dark-header-bg);
 }
 
-button:hover {
-  background: var(--aprobado);
+h1 {
+    color: inherit;
+    margin: 0;
 }
 
-main {
-  padding: 1rem;
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-  gap: 1rem;
+.theme-switch-wrapper {
+    display: flex;
+    align-items: center;
 }
 
-.seestre {
-  background: var(--card);
-  padding: 0.5rem;
-  border-radius: 16px;
+.theme-switch {
+    position: relative;
+    display: inline-block;
+    width: 60px;
+    height: 34px;
+    margin-right: 10px;
 }
 
-.ramo {
-  background: var(--card);
-  padding: 1rem;
-  margin-bottom: 0.5rem;
-  border-radius: 1rem;
-  box-shadow: 0 3px 10px rgba(0,0,0,0.1);
-  transition: transform 0.2s, background 0.3s;
+.theme-switch input {
+    opacity: 0;
+    width: 0;
+    height: 0;
 }
 
-.ramo:hover {
-  transform: scale(1.02);
+.slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: var(--light-toggle-bg);
+    transition: var(--transition-speed);
+    border-radius: 34px;
 }
 
-.ramo.aprobado {
-  text-decoration: line-through;
-  background: var(--aprobado);
-  opacity: 0.7;
+body.dark-mode .slider {
+    background-color: var(--dark-toggle-bg);
 }
 
-.ramo.disponible {
-  background: var(--disponible);
+.slider:before {
+    position: absolute;
+    content: "";
+    height: 26px;
+    width: 26px;
+    left: 4px;
+    bottom: 4px;
+    background-color: var(--light-toggle-slider);
+    transition: var(--transition-speed);
+    border-radius: 50%;
 }
 
-.ramo.bloqueado {
-  background: var(--bloqueado);
-  opacity: 0.5;
+body.dark-mode .slider:before {
+    background-color: var(--dark-toggle-slider);
 }
 
-.progreso {
-  margin: 1rem;
-  height: 25px;
-  background: #ddd;
-  border-radius: 20px;
-  overflow: hidden;
-  position: relative;
+input:checked + .slider {
+    background-color: var(--light-toggle-bg); /* Stays light for checked state */
 }
 
-#barra-progreso {
-  height: 100%;
-  width: 0%;
-  background: linear-gradient(to right, #ffb6c1, #dcd6f7, #a0e7e5);
-  transition: width 0.5s ease;
+body.dark-mode input:checked + .slider {
+    background-color: var(--dark-toggle-bg); /* Stays dark for checked state */
 }
 
-#texto-progreso {
-  position: absolute;
-  width: 100%;
-  text-align: center;
-  top: 0;
-  line-height: 25px;
-  font-weight: bold;
-  color: #333;
+input:checked + .slider:before {
+    transform: translateX(26px);
+}
+
+.slider.round {
+    border-radius: 34px;
+}
+
+.slider.round:before {
+    border-radius: 50%;
+}
+
+.theme-text {
+    color: inherit;
+}
+
+.cycle-section {
+    background-color: var(--light-semester-bg);
+    border-radius: var(--border-radius);
+    margin-bottom: 20px;
+    padding: 20px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.08);
+    transition: background-color var(--transition-speed);
+}
+
+body.dark-mode .cycle-section {
+    background-color: var(--dark-semester-bg);
+}
+
+.cycle-section h2 {
+    color: var(--light-text-color);
+    margin-top: 0;
+    border-bottom: 2px solid var(--light-border-color);
+    padding-bottom: 10px;
+    margin-bottom: 15px;
+    transition: color var(--transition-speed), border-color var(--transition-speed);
+}
+
+body.dark-mode .cycle-section h2 {
+    color: var(--dark-text-color);
+    border-color: var(--dark-border-color);
+}
+
+.semester {
+    background-color: var(--light-course-bg);
+    border-radius: var(--border-radius);
+    padding: 15px 20px;
+    margin-bottom: 15px;
+    transition: background-color var(--transition-speed);
+}
+
+body.dark-mode .semester {
+    background-color: var(--dark-course-bg);
+}
+
+.semester-header {
+    cursor: pointer;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 1.1em;
+    font-weight: bold;
+    color: var(--light-text-color);
+    transition: color var(--transition-speed);
+}
+
+body.dark-mode .semester-header {
+    color: var(--dark-text-color);
+}
+
+.semester-header:hover {
+    color: var(--light-hover-bg);
+}
+
+body.dark-mode .semester-header:hover {
+    color: var(--dark-hover-bg);
+}
+
+.toggle-icon {
+    font-size: 1.2em;
+    font-weight: bold;
+    transition: transform var(--transition-speed);
+}
+
+.course-list {
+    list-style: none;
+    padding: 0;
+    margin-top: 10px;
+}
+
+.course-list li {
+    display: flex;
+    align-items: center;
+    margin-bottom: 8px;
+    padding: 5px 0;
+    border-bottom: 1px dashed var(--light-border-color);
+    transition: border-color var(--transition-speed);
+}
+
+body.dark-mode .course-list li {
+    border-color: var(--dark-border-color);
+}
+
+.course-checkbox {
+    margin-right: 10px;
+    cursor: pointer;
+    appearance: none; /* Hide default checkbox */
+    width: 20px;
+    height: 20px;
+    border: 2px solid var(--light-border-color);
+    border-radius: 4px;
+    position: relative;
+    display: grid;
+    place-content: center;
+    transition: border-color var(--transition-speed), background-color var(--transition-speed);
+}
+
+body.dark-mode .course-checkbox {
+    border-color: var(--dark-border-color);
+}
+
+.course-checkbox::before {
+    content: "";
+    width: 12px;
+    height: 12px;
+    transform: scale(0);
+    transition: 120ms transform ease-in-out;
+    box-shadow: inset 1em 1em var(--light-semester-bg);
+    background-color: var(--light-semester-bg);
+    border-radius: 2px;
+}
+
+body.dark-mode .course-checkbox::before {
+    box-shadow: inset 1em 1em var(--dark-semester-bg);
+    background-color: var(--dark-semester-bg);
+}
+
+.course-checkbox:checked::before {
+    transform: scale(1);
+}
+
+.course-checkbox:focus {
+    outline: 2px solid var(--light-semester-bg);
+    outline-offset: 2px;
+}
+
+body.dark-mode .course-checkbox:focus {
+    outline-color: var(--dark-semester-bg);
+}
+
+
+.course-name {
+    cursor: pointer;
+    flex-grow: 1;
+    font-size: 1em;
+    color: var(--light-text-color);
+    transition: color var(--transition-speed);
+}
+
+body.dark-mode .course-name {
+    color: var(--dark-text-color);
+}
+
+.course-name.completed {
+    text-decoration: line-through;
+    color: #888; /* Slightly greyed out for completed */
+}
+
+body.dark-mode .course-name.completed {
+    color: #bbb;
+}
+
+.course-area {
+    font-size: 0.8em;
+    color: #666;
+    background-color: var(--light-hover-bg);
+    padding: 3px 8px;
+    border-radius: 5px;
+    margin-left: 10px;
+    transition: background-color var(--transition-speed), color var(--transition-speed);
+}
+
+body.dark-mode .course-area {
+    background-color: var(--dark-hover-bg);
+    color: #ddd;
+}
+
+.program-details {
+    background-color: var(--light-header-bg);
+    padding: 20px 30px;
+    border-radius: var(--border-radius);
+    margin-top: 20px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    transition: background-color var(--transition-speed);
+}
+
+body.dark-mode .program-details {
+    background-color: var(--dark-header-bg);
+}
+
+.program-details h2, .program-details h3 {
+    color: inherit;
+    margin-top: 0;
+    border-bottom: 1px solid var(--light-border-color);
+    padding-bottom: 5px;
+    margin-bottom: 10px;
+    transition: border-color var(--transition-speed);
+}
+
+body.dark-mode .program-details h2, body.dark-mode .program-details h3 {
+    border-color: var(--dark-border-color);
+}
+
+.program-details p, .program-details ul {
+    margin-bottom: 10px;
+    color: inherit;
+}
+
+.program-details ul {
+    padding-left: 20px;
+    list-style: disc;
+}
+
+/* Tooltips */
+[title]:hover:after {
+    content: attr(title);
+    position: absolute;
+    background-color: rgba(0, 0, 0, 0.8);
+    color: #fff;
+    padding: 5px 10px;
+    border-radius: 5px;
+    white-space: nowrap;
+    z-index: 10;
+    transform: translateY(-10px);
+    opacity: 0;
+    animation: fadeIn 0.3s forwards;
+    pointer-events: none; /* Allows clicks on elements behind the tooltip */
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(-10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    header {
+        flex-direction: column;
+        align-items: flex-start;
+        padding: 15px;
+    }
+
+    .theme-switch-wrapper {
+        margin-top: 10px;
+    }
+
+    body {
+        padding: 10px;
+    }
+
+    .cycle-section, .program-details {
+        padding: 15px;
+    }
+
+    .semester {
+        padding: 10px 15px;
+    }
+}
+
+@media (max-width: 480px) {
+    h1 {
+        font-size: 1.8em;
+    }
+
+    .semester-header {
+        font-size: 1em;
+    }
+
+    .course-list li {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .course-checkbox {
+        margin-bottom: 5px;
+    }
+
+    .course-area {
+        margin-left: 0;
+        margin-top: 5px;
+    }
 }
