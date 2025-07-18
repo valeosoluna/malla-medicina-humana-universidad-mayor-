@@ -1,28 +1,35 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Malla Medicina Interactiva</title>
-  <link rel="stylesheet" href="style.css" />
-  <script defer src="data.js"></script>
-  <script defer src="script.js"></script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Malla Curricular Medicina</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <header>
-    <h1>Malla Medicina Interactiva</h1>
-    <button id="modo-btn" title="Cambiar modo claro/oscuro">🌙</button>
-  </header>
+    <header>
+        <h1>Malla Curricular de Medicina</h1>
+        <div class="theme-switch-wrapper">
+            <label class="theme-switch" for="checkbox">
+                <input type="checkbox" id="checkbox" />
+                <div class="slider round"></div>
+            </label>
+            <span class="theme-text">Modo Claro/Oscuro</span>
+        </div>
+    </header>
 
-  <div class="progreso">
-    <div id="barra-progreso"></div>
-    <span id="texto-progreso">0% Avance</span>
-  </div>
+    <main id="course-grid">
+        </main>
 
-  <main id="malla-container"></main>
+    <aside class="program-details">
+        <h2>Información del Programa</h2>
+        <p><strong>Grado Académico:</strong> <span id="licenciate-title"></span></p>
+        <p><strong>Título Profesional:</strong> <span id="professional-title"></span></p>
+        <h3>Notas Importantes:</h3>
+        <ul id="program-notes"></ul>
+    </aside>
 
-  <footer>
-    <p>🔎 Pasa el mouse sobre los botones para ver sus funciones.</p>
-  </footer>
+    <script src="data.js"></script>
+    <script src="script.js"></script>
 </body>
 </html>
