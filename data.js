@@ -87,18 +87,18 @@ const coursesData = [
     { id: 61, name: "Internado de obstetricia y ginecología", semester: 12, prerequisites: [], area: "Disciplinar", approved: false, grade: null, description: "Práctica clínica intensiva en ginecología y obstetricia." },
     { id: 62, name: "Internado electivo III", semester: 12, prerequisites: [], area: "Electiva", approved: false, grade: null, description: "Internado en un área de elección del estudiante." },
 
-    [cite_start]// Semestre 13 - Los internados son rotativos anuales, según el PDF[cite: 92].
+    // Semestre 13 - Los internados son rotativos anuales, según el PDF.
     // Los internados a partir del semestre 11 se consideran anuales.
     // Para propósitos de la malla, si se muestra en un semestre, se asume que se cursa en ese periodo.
-    [cite_start]// El PDF no detalla semestres 13 y 14 con ramos específicos, solo "Integración para la práctica profesional"[cite: 98].
+    // El PDF no detalla semestres 13 y 14 con ramos específicos, solo "Integración para la práctica profesional".
     // Mantendremos 12 semestres para los ramos explícitos.
     // Si se necesita modelar los semestres 13 y 14, se pueden añadir como contenedores vacíos o con "Integración..."
 
-    [cite_start]// Asignatura "Integración para la práctica profesional" [cite: 98] no tiene semestre específico en el PDF,
+    // Asignatura "Integración para la práctica profesional" no tiene semestre específico en el PDF,
     // pero se asume es al final, previo al título.
     { id: 63, name: "Integración para la práctica profesional", semester: 12, prerequisites: [], area: "Disciplinar", approved: false, grade: null, description: "Preparación final para la práctica profesional, integrando todos los conocimientos." }
 
     // Consideré 12 semestres como máximo basándome en los ramos listados explícitamente.
-    [cite_start]// El PDF menciona "Semestre 13" y "Semestre 14" pero sin ramos específicos en el diagrama, solo "Integración para la práctica profesional"[cite: 98].
+    // El PDF menciona "Semestre 13" y "Semestre 14" pero sin ramos específicos en el diagrama, solo "Integración para la práctica profesional".
     // Si se necesitan más semestres, se pueden añadir manualmente o considerar que los "Internados" rotativos anuales cubren esos periodos.
 ];
